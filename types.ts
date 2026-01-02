@@ -12,7 +12,7 @@ export interface Project {
 
 export interface Capability {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
   proof: string;
 }
