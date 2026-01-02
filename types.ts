@@ -5,7 +5,6 @@ export interface Project {
   headline: string;
   type: string;
   description: string;
-  tags: string[];
   ctaText: string;
   isFeatured?: boolean;
 }
