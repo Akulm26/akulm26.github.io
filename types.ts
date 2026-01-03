@@ -1,4 +1,3 @@
-
 export interface Project {
   id: string;
   title: string;
@@ -7,6 +6,7 @@ export interface Project {
   description: string;
   ctaText: string;
   isFeatured?: boolean;
+  imageUrl?: string;
 }
 
 export interface Capability {

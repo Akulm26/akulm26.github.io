@@ -1,6 +1,478 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Mail, Linkedin, Calendar, MapPin, ArrowRight, ExternalLink, Download, Plus, Zap, Target, Activity, Award, Brain, Microscope, Compass, Layers, Search, RefreshCw, BarChart3, Workflow, GraduationCap, Globe, Sparkles, Coffee, Phone } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Mail, Linkedin, Calendar, MapPin, ArrowRight, ExternalLink, Download, Plus, Zap, Target, Activity, Award, Brain, Microscope, Compass, Layers, Search, RefreshCw, BarChart3, Workflow, GraduationCap, Globe, Sparkles, Coffee, Phone, Clapperboard, Upload, Loader2, Play, Image as ImageIcon, Wand2, Check } from 'lucide-react';
 import { PROJECTS, SECONDARY_PROJECTS, CAPABILITIES, STEPS, PRINCIPLES } from './constants';
+import { GoogleGenAI } from "@google/genai";
+
+const ImageEditorModal: React.FC<{ 
+  isOpen: boolean; 
+  onClose: () => void; 
+  initialImage?: string;
+  onImageEdited: (newImageUrl: string) => void;
+}> = ({ isOpen, onClose, initialImage, onImageEdited }) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(initialImage || null);
+  const [prompt, setPrompt] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [resultImage, setResultImage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (initialImage) setPreview(initialImage);
+    setResultImage(null);
+    setError(null);
+  }, [initialImage, isOpen]);
+
+  const blobToBase64 = (blob: Blob): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = (reader.result as string).split(',')[1];
+        resolve(base64String);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const handleEdit = async () => {
+    if (!prompt) {
+      setError("Please enter an edit prompt.");
+      return;
+    }
+
+    try {
+      setError(null);
+      setIsEditing(true);
+
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      let base64Image = '';
+
+      if (file) {
+        base64Image = await blobToBase64(file);
+      } else if (preview && preview.startsWith('http')) {
+        const resp = await fetch(preview);
+        const blob = await resp.blob();
+        base64Image = await blobToBase64(blob);
+      } else if (preview && preview.startsWith('data:')) {
+        base64Image = preview.split(',')[1];
+      }
+
+      if (!base64Image) throw new Error("No image source found.");
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-image',
+        contents: {
+          parts: [
+            {
+              inlineData: {
+                data: base64Image,
+                mimeType: file?.type || 'image/png',
+              },
+            },
+            {
+              text: prompt,
+            },
+          ],
+        },
+      });
+
+      let foundImage = false;
+      for (const part of response.candidates?.[0]?.content?.parts || []) {
+        if (part.inlineData) {
+          const newImage = `data:image/png;base64,${part.inlineData.data}`;
+          setResultImage(newImage);
+          foundImage = true;
+          break;
+        }
+      }
+
+      if (!foundImage) {
+        throw new Error("Gemini didn't return an image. Try a different prompt.");
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to edit image.");
+    } finally {
+      setIsEditing(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 overflow-y-auto">
+      <div className="bg-white w-full max-w-5xl rounded-[40px] overflow-hidden shadow-2xl relative">
+        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 transition-colors z-50">
+          <X size={24} />
+        </button>
+
+        <div className="grid lg:grid-cols-2 h-full min-h-[600px]">
+          <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-100 flex flex-col">
+            <h2 className="text-3xl font-display font-black text-text-primary mb-2 flex items-center gap-3">
+              <ImageIcon className="text-accent" /> Nano Banana Editor
+            </h2>
+            <p className="text-text-secondary text-sm mb-8 italic">
+              AI-driven visual refinement using Gemini 2.5 Flash Image.
+            </p>
+
+            <div className="flex-1 space-y-6">
+              <div>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Original Visual</label>
+                <div 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="aspect-video rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:bg-blue-50 transition-all group overflow-hidden relative"
+                >
+                  {preview ? (
+                    <img src={preview} className="w-full h-full object-cover" alt="Preview" />
+                  ) : (
+                    <Upload size={24} className="text-slate-300" />
+                  )}
+                  <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) {
+                      setFile(f);
+                      const reader = new FileReader();
+                      reader.onloadend = () => setPreview(reader.result as string);
+                      reader.readAsDataURL(f);
+                    }
+                  }} />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Refinement Prompt</label>
+                <textarea 
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="e.g. 'Add a retro cinematic filter', 'Remove the background person', 'Make it look futuristic'..."
+                  className="w-full p-5 rounded-2xl bg-slate-50 border border-slate-200 text-sm focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none min-h-[120px] transition-all"
+                />
+              </div>
+
+              <button
+                onClick={handleEdit}
+                disabled={isEditing || !prompt}
+                className="w-full py-5 bg-text-primary text-white rounded-[24px] font-bold text-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl hover:shadow-accent/30 flex items-center justify-center gap-3"
+              >
+                {isEditing ? (
+                  <>
+                    <Loader2 className="animate-spin" />
+                    <span>Processing visual...</span>
+                  </>
+                ) : (
+                  <>
+                    <Wand2 size={20} />
+                    <span>Apply Refinement</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="p-8 lg:p-12 bg-slate-900 flex flex-col justify-center items-center text-center text-white overflow-hidden">
+            {resultImage ? (
+              <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <div className="aspect-video bg-black rounded-3xl overflow-hidden shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] border border-white/10">
+                  <img src={resultImage} className="w-full h-full object-contain" alt="Result" />
+                </div>
+                <div className="flex gap-4">
+                  <button 
+                    onClick={() => {
+                      onImageEdited(resultImage);
+                      onClose();
+                    }}
+                    className="flex-1 py-4 bg-accent text-white rounded-2xl font-bold text-sm hover:brightness-110 transition-all flex items-center justify-center gap-2"
+                  >
+                    <Check size={18} /> Apply to Portfolio
+                  </button>
+                  <button 
+                    onClick={() => setResultImage(null)}
+                    className="flex-1 py-4 bg-white/10 border border-white/10 rounded-2xl font-bold text-sm hover:bg-white/20 transition-all"
+                  >
+                    Discard
+                  </button>
+                </div>
+              </div>
+            ) : isEditing ? (
+              <div className="space-y-8 max-w-xs">
+                <div className="relative">
+                  <div className="w-32 h-32 rounded-full border-4 border-white/10 border-t-accent animate-spin mx-auto"></div>
+                  <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-accent animate-pulse" size={32} />
+                </div>
+                <div className="space-y-4">
+                  <h4 className="text-xl font-bold text-white">Reimagining visual...</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed italic">"Flash model logic at work."</p>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="space-y-6 text-red-400">
+                <div className="w-16 h-16 rounded-full bg-red-400/10 flex items-center justify-center mx-auto text-red-400">
+                  <X size={32} />
+                </div>
+                <p className="font-bold">{error}</p>
+                <button onClick={() => setError(null)} className="px-6 py-2 bg-white/10 rounded-full text-xs font-bold hover:bg-white/20 transition-all uppercase tracking-widest">Retry</button>
+              </div>
+            ) : (
+              <div className="space-y-6 opacity-30">
+                <div className="w-24 h-24 rounded-[32px] border-4 border-dashed border-white/20 flex items-center justify-center mx-auto">
+                  <ImageIcon size={40} className="text-white" />
+                </div>
+                <p className="font-medium text-slate-400">Refined output will appear here</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const VeoModal: React.FC<{ isOpen: boolean; onClose: () => void; initialImage?: string }> = ({ isOpen, onClose, initialImage }) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(initialImage || null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [aspectRatio, setAspectRatio] = useState<'16:9' | '9:16'>('16:9');
+  const [progress, setProgress] = useState(0);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (initialImage) setPreview(initialImage);
+  }, [initialImage]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result as string);
+      reader.readAsDataURL(selectedFile);
+      setVideoUrl(null);
+      setError(null);
+    }
+  };
+
+  const blobToBase64 = (blob: Blob): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = (reader.result as string).split(',')[1];
+        resolve(base64String);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const generateVideo = async () => {
+    try {
+      setError(null);
+      setIsGenerating(true);
+      setProgress(0);
+
+      const hasKey = await window.aistudio.hasSelectedApiKey();
+      if (!hasKey) {
+        await window.aistudio.openSelectKey();
+      }
+
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      let base64Image = '';
+
+      if (file) {
+        base64Image = await blobToBase64(file);
+      } else if (preview && preview.startsWith('http')) {
+        const resp = await fetch(preview);
+        const blob = await resp.blob();
+        base64Image = await blobToBase64(blob);
+      } else if (preview && preview.startsWith('data:')) {
+        base64Image = preview.split(',')[1];
+      }
+
+      if (!base64Image) {
+        throw new Error("Please upload an image first.");
+      }
+
+      let operation = await ai.models.generateVideos({
+        model: 'veo-3.1-fast-generate-preview',
+        prompt: 'Animate this project visual with smooth cinematic transitions and subtle motion.',
+        image: {
+          imageBytes: base64Image,
+          mimeType: file?.type || 'image/jpeg',
+        },
+        config: {
+          numberOfVideos: 1,
+          resolution: '720p',
+          aspectRatio: aspectRatio
+        }
+      });
+
+      while (!operation.done) {
+        await new Promise(resolve => setTimeout(resolve, 10000));
+        setProgress(prev => Math.min(prev + 10, 95));
+        try {
+          operation = await ai.operations.getVideosOperation({ operation: operation });
+        } catch (e: any) {
+          if (e.message?.includes("Requested entity was not found")) {
+            await window.aistudio.openSelectKey();
+            throw new Error("API Session lost. Please select your key and try again.");
+          }
+          throw e;
+        }
+      }
+
+      const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
+      if (downloadLink) {
+        const videoResponse = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
+        const videoBlob = await videoResponse.blob();
+        setVideoUrl(URL.createObjectURL(videoBlob));
+        setProgress(100);
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to generate video. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
+      <div className="bg-white w-full max-w-4xl rounded-[40px] overflow-hidden shadow-2xl relative">
+        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 transition-colors z-10">
+          <X size={24} />
+        </button>
+
+        <div className="grid lg:grid-cols-2">
+          <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-100">
+            <h2 className="text-3xl font-display font-black text-text-primary mb-2 flex items-center gap-3">
+              <Clapperboard className="text-accent" /> Veo Animator
+            </h2>
+            <p className="text-text-secondary text-sm mb-8">
+              Transform static project visuals into dynamic AI-generated cinema.
+            </p>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Target Visual</label>
+                <div 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="aspect-video rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:bg-blue-50 transition-all group overflow-hidden relative"
+                >
+                  {preview ? (
+                    <>
+                      <img src={preview} className="w-full h-full object-cover" alt="Preview" />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Upload className="text-white" />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-slate-400 mb-4 group-hover:scale-110 transition-transform">
+                        <Upload size={24} />
+                      </div>
+                      <span className="text-sm font-medium text-slate-500">Click to upload or drag image</span>
+                    </>
+                  )}
+                  <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileChange} />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Aspect Ratio</label>
+                <div className="flex gap-4">
+                  {(['16:9', '9:16'] as const).map(ratio => (
+                    <button
+                      key={ratio}
+                      onClick={() => setAspectRatio(ratio)}
+                      className={`flex-1 py-3 rounded-2xl text-xs font-bold border transition-all ${aspectRatio === ratio ? 'bg-accent text-white border-accent shadow-lg shadow-accent/20' : 'bg-white text-text-secondary border-slate-200 hover:border-accent'}`}
+                    >
+                      {ratio} {ratio === '16:9' ? '(Landscape)' : '(Portrait)'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={generateVideo}
+                disabled={isGenerating || (!preview && !file)}
+                className="w-full py-5 bg-text-primary text-white rounded-[24px] font-bold text-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl hover:shadow-accent/30 flex items-center justify-center gap-3"
+              >
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="animate-spin" />
+                    <span>Dreaming in progress ({progress}%)</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap size={20} />
+                    <span>Generate Veo Animation</span>
+                  </>
+                )}
+              </button>
+              
+              <p className="text-[10px] text-center text-slate-400">
+                This process takes ~1-2 minutes. Ensure you have a <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" className="underline hover:text-accent">paid API key</a> selected.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-8 lg:p-12 bg-slate-50 flex flex-col justify-center items-center text-center">
+            {videoUrl ? (
+              <div className="w-full space-y-6">
+                <div className="aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl relative group">
+                  <video src={videoUrl} controls autoPlay loop className="w-full h-full object-contain" />
+                </div>
+                <div className="flex gap-4">
+                  <a href={videoUrl} download="cerebro-animation.mp4" className="flex-1 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+                    <Download size={18} /> Download MP4
+                  </a>
+                  <button onClick={() => setVideoUrl(null)} className="flex-1 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-sm hover:bg-slate-100 transition-all">
+                    Reset
+                  </button>
+                </div>
+              </div>
+            ) : isGenerating ? (
+              <div className="space-y-8 max-w-xs">
+                <div className="relative">
+                  <div className="w-32 h-32 rounded-full border-4 border-slate-200 border-t-accent animate-spin mx-auto"></div>
+                  <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-accent animate-pulse" size={32} />
+                </div>
+                <div className="space-y-4">
+                  <h4 className="text-xl font-bold text-text-primary">Bringing pixels to life</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed italic">"The best way to predict the future is to animate it."</p>
+                  <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-accent transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                  </div>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="space-y-6 text-red-500">
+                <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto text-red-500">
+                  <X size={32} />
+                </div>
+                <p className="font-bold">{error}</p>
+                <button onClick={() => setError(null)} className="px-6 py-2 bg-white border border-red-100 rounded-full text-xs font-bold hover:bg-red-50 transition-all uppercase tracking-widest">Dismiss</button>
+              </div>
+            ) : (
+              <div className="space-y-6 opacity-40">
+                <div className="w-24 h-24 rounded-[32px] border-4 border-dashed border-slate-300 flex items-center justify-center mx-auto">
+                  <Play size={40} className="text-slate-300 ml-1" />
+                </div>
+                <p className="font-medium text-slate-400">Result will appear here</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +564,6 @@ const Header: React.FC = () => {
 const Hero: React.FC = () => {
   return (
     <section className="min-h-screen flex items-center pt-20 pb-20 overflow-hidden relative bg-white">
-      {/* Dynamic Background Elements */}
       <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-blue-50/50 blur-[100px] -z-10 rounded-full animate-pulse"></div>
       <div className="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-slate-50/50 blur-[120px] -z-10 rounded-full"></div>
       
@@ -135,7 +606,6 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Quick Contact Actions - Positioned BELOW the image with explicit clickable properties */}
             <div className="mt-10 flex items-center justify-center gap-8 relative z-30">
               <a href="mailto:akul@example.com" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
                 <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-accent/30 hover:-translate-y-2 active:scale-95">
@@ -165,7 +635,11 @@ const Hero: React.FC = () => {
   );
 };
 
-const SelectedWork: React.FC = () => {
+const SelectedWork: React.FC<{ 
+  onAnimate: (img: string) => void;
+  onEdit: (img: string, projectId: string) => void;
+  editedImages: Record<string, string>;
+}> = ({ onAnimate, onEdit, editedImages }) => {
   const [showSecondary, setShowSecondary] = useState(false);
 
   return (
@@ -189,19 +663,54 @@ const SelectedWork: React.FC = () => {
               </span>
 
               <div className={`flex flex-col lg:flex-row gap-16 lg:gap-32 items-start ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                <div className="w-full lg:w-[60%] relative">
-                  <div className="rounded-[40px] overflow-hidden bg-slate-100 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01]">
+                <div className="w-full lg:w-[60%] relative group/img-wrapper flex flex-col md:flex-row gap-6">
+                  <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative">
                     <img 
-                      src={`https://picsum.photos/seed/${project.id}/1600/1200`} 
+                      src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1600/1200`} 
                       alt={project.title} 
                       className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
                     />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img-wrapper:opacity-100 transition-opacity flex flex-col items-center justify-center gap-4 p-4">
+                      <button 
+                        onClick={() => onAnimate(project.imageUrl || '')}
+                        className="w-full max-w-xs bg-white text-text-primary px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2"
+                      >
+                        <Clapperboard size={18} className="text-accent" />
+                        Veo Animator
+                      </button>
+                      <button 
+                        onClick={() => onEdit(project.imageUrl || '', project.id)}
+                        className="w-full max-w-xs bg-accent text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2"
+                      >
+                        <ImageIcon size={18} />
+                        Nano Banana Edit
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Right side of Cerebro AI resulting image display */}
+                  {project.id === 'cerebro-ai' && editedImages[project.id] && (
+                    <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl border-4 border-accent/20 animate-in fade-in slide-in-from-right-10 duration-1000">
+                      <div className="absolute top-4 left-4 z-10 bg-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
+                        AI Result
+                      </div>
+                      <img 
+                        src={editedImages[project.id]} 
+                        alt="Edited Cerebro AI" 
+                        className="w-full aspect-[4/3] object-cover"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="w-full lg:w-[40%] pt-8 space-y-8">
-                  <div className="flex items-center">
+                  <div className="flex items-center gap-4">
                     <span className="text-accent font-bold uppercase tracking-widest text-[10px] bg-blue-50 px-3 py-1 rounded-full">{project.type}</span>
+                    {project.metricValue && (
+                      <div className="flex items-center gap-2 px-3 py-1 bg-green-50 rounded-full">
+                        <span className="text-[10px] font-bold text-green-700 uppercase">{project.metricLabel}: {project.metricValue}</span>
+                      </div>
+                    )}
                   </div>
 
                   <h3 className="text-4xl md:text-6xl font-display font-bold text-text-primary tracking-tight leading-[1.1] group-hover:text-accent transition-colors duration-300">
@@ -212,12 +721,13 @@ const SelectedWork: React.FC = () => {
                     <div className="flex gap-4">
                       <div className="h-6 w-[2px] bg-accent mt-2"></div>
                       <p className="text-lg md:text-xl text-text-secondary leading-relaxed font-light">
+                        <span className="font-bold text-text-primary block mb-2">{project.headline}</span>
                         {project.description}
                       </p>
                     </div>
                   </div>
 
-                  <div className="pt-8">
+                  <div className="pt-8 flex flex-wrap gap-6">
                     <a href="#" className="group/btn inline-flex items-center gap-3 text-text-primary font-bold text-lg border-b-2 border-accent pb-1 hover:border-text-primary transition-all">
                       <span>{project.ctaText}</span>
                       <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
@@ -274,6 +784,59 @@ const SelectedWork: React.FC = () => {
   );
 };
 
+// Rest of components (CapabilitiesSection, Approach, Philosophy, About, Contact, Footer) stay the same
+
+const App: React.FC = () => {
+  const [isAnimateModalOpen, setIsAnimateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string | undefined>(undefined);
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
+  const [editedImages, setEditedImages] = useState<Record<string, string>>({});
+
+  const openAnimate = (img: string) => {
+    setModalImage(img);
+    setIsAnimateModalOpen(true);
+  };
+
+  const openEdit = (img: string, projectId: string) => {
+    setModalImage(img);
+    setActiveProjectId(projectId);
+    setIsEditModalOpen(true);
+  };
+
+  const handleImageEdited = (newImageUrl: string) => {
+    if (activeProjectId) {
+      setEditedImages(prev => ({ ...prev, [activeProjectId]: newImageUrl }));
+    }
+  };
+
+  return (
+    <div className="min-h-screen font-sans text-text-primary">
+      <Header />
+      <Hero />
+      <SelectedWork 
+        onAnimate={openAnimate} 
+        onEdit={openEdit}
+        editedImages={editedImages}
+      />
+      <CapabilitiesSection />
+      <Approach />
+      <Philosophy />
+      <About />
+      <Contact />
+      <Footer />
+      <VeoModal isOpen={isAnimateModalOpen} onClose={() => setIsAnimateModalOpen(false)} initialImage={modalImage} />
+      <ImageEditorModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+        initialImage={modalImage} 
+        onImageEdited={handleImageEdited}
+      />
+    </div>
+  );
+};
+
+// Placeholder components to maintain structure (already defined in previous turns but ensuring they are here for App.tsx context)
 const CapabilitiesSection: React.FC = () => {
   return (
     <section className="pt-32 pb-48 bg-slate-50">
@@ -304,23 +867,23 @@ const CapabilitiesSection: React.FC = () => {
 
 const Approach: React.FC = () => {
   return (
-    <section id="approach" className="pt-48 pb-32 bg-white scroll-mt-20">
+    <section id="approach" className="pt-24 lg:pt-48 pb-32 bg-white scroll-mt-20">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-20 items-start">
-          <div className="w-full lg:w-1/3 sticky top-32">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+          <div className="w-full lg:w-1/3 lg:sticky lg:top-32 mb-8 lg:mb-0">
             <h2 className="text-accent font-bold tracking-widest uppercase text-xs mb-4">Philosophy</h2>
-            <h3 className="text-4xl md:text-6xl font-display font-bold text-text-primary tracking-tighter leading-none mb-8">The Builder's <br /> Framework.</h3>
-            <p className="text-text-secondary text-lg font-light leading-relaxed">
+            <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-text-primary tracking-tighter leading-none mb-6 lg:mb-8">The Builder's <br /> Framework.</h3>
+            <p className="text-text-secondary text-base md:text-lg font-light leading-relaxed">
               I follow a systematic approach to shipping intelligence, moving from raw ambiguity to scalable, validated user impact.
             </p>
           </div>
-          <div className="w-full lg:w-2/3 space-y-12">
+          <div className="w-full lg:w-2/3 space-y-12 md:space-y-20">
             {STEPS.map((step, idx) => (
-              <div key={idx} className="flex gap-10 items-start group">
-                <span className="text-5xl font-display font-black text-slate-100 group-hover:text-accent transition-colors duration-500">0{idx + 1}</span>
-                <div className="pt-2">
-                  <h4 className="text-2xl font-bold text-text-primary mb-4">{step.title}</h4>
-                  <p className="text-text-secondary leading-relaxed max-w-xl">{step.description}</p>
+              <div key={idx} className="flex flex-col sm:flex-row gap-6 md:gap-10 items-start group relative">
+                <span className="text-6xl md:text-8xl font-display font-black text-slate-100 group-hover:text-accent transition-colors duration-500 leading-none">0{idx + 1}</span>
+                <div className="pt-1 md:pt-2">
+                  <h4 className="text-2xl md:text-3xl font-bold text-text-primary mb-3 md:mb-4">{step.title}</h4>
+                  <p className="text-text-secondary text-base md:text-lg leading-relaxed max-w-xl">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -333,7 +896,6 @@ const Approach: React.FC = () => {
 
 const Philosophy: React.FC = () => {
   const icons = [<Activity size={24} />, <Brain size={24} />, <Microscope size={24} />, <Layers size={24} />, <Search size={24} />, <RefreshCw size={24} />];
-  
   return (
     <section id="philosophy" className="py-32 bg-slate-900 text-white scroll-mt-20 overflow-hidden">
       <div className="container mx-auto px-6 relative">
@@ -343,28 +905,18 @@ const Philosophy: React.FC = () => {
           </h2>
           <h3 className="text-4xl md:text-8xl font-display font-bold tracking-tighter leading-none">Principled <br /> Product Craft.</h3>
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-accent/5 blur-[150px] -z-10 pointer-events-none"></div>
-          
           {PRINCIPLES.map((p, idx) => (
             <div key={idx} className="group relative bg-white/[0.03] border border-white/10 p-10 rounded-[40px] hover:bg-white/[0.08] hover:border-accent/40 transition-all duration-500 overflow-hidden flex flex-col justify-between h-[340px]">
-              <span className="absolute -bottom-8 -right-4 text-[140px] font-display font-black text-white/[0.03] group-hover:text-accent/[0.05] transition-colors duration-500 select-none">
-                0{idx + 1}
-              </span>
-              
+              <span className="absolute -bottom-8 -right-4 text-[140px] font-display font-black text-white/[0.03] group-hover:text-accent/[0.05] transition-colors duration-500 select-none">0{idx + 1}</span>
               <div className="relative z-10">
                 <div className="mb-8 p-4 bg-white/5 rounded-2xl w-fit text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-500">
                   {icons[idx % icons.length]}
                 </div>
-                <h4 className="text-2xl font-display font-bold text-white mb-6 leading-tight group-hover:text-accent transition-colors">
-                  {p.title}
-                </h4>
-                <p className="text-slate-400 text-base leading-relaxed font-light group-hover:text-slate-200 transition-colors">
-                  {p.description}
-                </p>
+                <h4 className="text-2xl font-display font-bold text-white mb-6 leading-tight group-hover:text-accent transition-colors">{p.title}</h4>
+                <p className="text-slate-400 text-base leading-relaxed font-light group-hover:text-slate-200 transition-colors">{p.description}</p>
               </div>
-
               <div className="relative z-10 pt-6">
                 <div className="h-[2px] w-8 bg-accent/30 group-hover:w-full transition-all duration-700"></div>
               </div>
@@ -381,18 +933,15 @@ const About: React.FC = () => {
     <section id="about" className="py-48 bg-white scroll-mt-20 overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-[1fr,1.4fr] gap-20 lg:gap-32 items-center">
-          {/* Visual Column */}
           <div className="relative group">
             <div className="absolute -top-12 -left-12 w-48 h-48 bg-blue-50 rounded-full blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
             <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-slate-50 rounded-full blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
-            
             <div className="relative z-10 aspect-[4/5.5] rounded-[48px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 bg-white">
               <img 
                 src="https://PixHostPullZone.b-cdn.net/84c02f9f-af14-4135-93e9-15c98ca3833f/a4b8r0q5mjwhf78n/1767334659657-rg1gm8x2.png" 
                 alt="Akul" 
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.05] group-hover:scale-100" 
               />
-              
               <div className="absolute bottom-8 right-8 glass p-5 rounded-2xl shadow-xl border border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -400,57 +949,28 @@ const About: React.FC = () => {
                 </div>
               </div>
             </div>
-
             <div className="absolute -z-10 top-0 left-0 w-full h-full border border-accent/10 rounded-[48px] translate-x-4 translate-y-4"></div>
           </div>
-
-          {/* Narrative Column */}
           <div className="space-y-12">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <span className="w-10 h-[1px] bg-accent"></span>
                 <h2 className="text-accent font-bold tracking-[0.3em] uppercase text-xs">The Human Element</h2>
               </div>
-              <h3 className="text-5xl md:text-7xl font-display font-bold text-text-primary tracking-tighter leading-none">
-                From data science to <br /> product <span className="text-accent italic">leadership.</span>
-              </h3>
+              <h3 className="text-5xl md:text-7xl font-display font-bold text-text-primary tracking-tighter leading-none">From data science to <br /> product <span className="text-accent italic">leadership.</span></h3>
             </div>
-
             <div className="space-y-8">
-              <p className="text-text-secondary leading-relaxed font-light text-xl md:text-2xl">
-                My journey began in the world of high-stakes data science, where I learned that numbers only matter if they move people. Today, I leverage that technical foundation to build AI products that feel human.
-              </p>
-              <p className="text-text-secondary leading-relaxed font-light text-xl md:text-2xl">
-                Having transitioned from a technical contributor to product management, I specialize in translating complex algorithmic capabilities into intuitive daily products. I focus on durable growth by balancing rigorous analytical thinking with a relentless obsession for user empathy.
-              </p>
+              <p className="text-text-secondary leading-relaxed font-light text-xl md:text-2xl">My journey began in the world of high-stakes data science, where I learned that numbers only matter if they move people. Today, I leverage that technical foundation to build AI products that feel human.</p>
+              <p className="text-text-secondary leading-relaxed font-light text-xl md:text-2xl">Having transitioned from a technical contributor to product management, I specialize in translating complex algorithmic capabilities into intuitive daily products.</p>
             </div>
-
             <div className="pt-12 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-slate-100">
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-accent">
-                  <GraduationCap size={16} />
-                  <p className="text-[10px] font-bold uppercase tracking-widest">Academic Base</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-text-primary font-bold">MS Analytics</p>
-                  <p className="text-text-secondary text-sm">Kogod School of Business</p>
-                  <div className="inline-block mt-2 px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-bold text-text-secondary">PMP Certified</div>
-                </div>
+                <div className="flex items-center gap-2 text-accent"><GraduationCap size={16} /><p className="text-[10px] font-bold uppercase tracking-widest">Academic Base</p></div>
+                <div className="space-y-1"><p className="text-text-primary font-bold">MS Analytics</p><p className="text-text-secondary text-sm">Kogod School of Business</p><div className="inline-block mt-2 px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-bold text-text-secondary">PMP Certified</div></div>
               </div>
-
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-accent">
-                  <Globe size={16} />
-                  <p className="text-[10px] font-bold uppercase tracking-widest">Global Base</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-text-primary font-bold">Chandigarh, India</p>
-                  <p className="text-text-secondary text-sm">Available for global projects</p>
-                  <div className="flex gap-3 mt-3">
-                    <Coffee size={14} className="text-text-secondary opacity-40" />
-                    <Sparkles size={14} className="text-text-secondary opacity-40" />
-                  </div>
-                </div>
+                <div className="flex items-center gap-2 text-accent"><Globe size={16} /><p className="text-[10px] font-bold uppercase tracking-widest">Global Base</p></div>
+                <div className="space-y-1"><p className="text-text-primary font-bold">Chandigarh, India</p><p className="text-text-secondary text-sm">Available for global projects</p></div>
               </div>
             </div>
           </div>
@@ -466,18 +986,10 @@ const Contact: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto bg-white rounded-[40px] p-12 md:p-20 shadow-2xl border border-slate-100 relative overflow-hidden text-center">
           <h2 className="text-accent font-bold tracking-widest uppercase text-xs mb-8">Get in Touch</h2>
-          <h3 className="text-4xl md:text-6xl font-display font-bold text-text-primary tracking-tighter mb-12">
-            Let's build something <br /> meaningful.
-          </h3>
+          <h3 className="text-4xl md:text-6xl font-display font-bold text-text-primary tracking-tighter mb-12">Let's build something <br /> meaningful.</h3>
           <div className="flex flex-wrap justify-center gap-6">
-            <a href="mailto:akul@example.com" className="flex items-center gap-3 px-8 py-4 bg-text-primary text-white rounded-2xl font-bold hover:bg-accent transition-all shadow-xl shadow-slate-200 group">
-              <Mail size={20} />
-              <span>Email Me</span>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 bg-white text-text-primary border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all">
-              <Linkedin size={20} className="text-[#0077B5]" />
-              <span>LinkedIn</span>
-            </a>
+            <a href="mailto:akul@example.com" className="flex items-center gap-3 px-8 py-4 bg-text-primary text-white rounded-2xl font-bold hover:bg-accent transition-all shadow-xl shadow-slate-200 group"><Mail size={20} /><span>Email Me</span></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 bg-white text-text-primary border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all"><Linkedin size={20} className="text-[#0077B5]" /><span>LinkedIn</span></a>
           </div>
         </div>
       </div>
@@ -496,22 +1008,6 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
-  );
-};
-
-const App: React.FC = () => {
-  return (
-    <div className="min-h-screen font-sans text-text-primary">
-      <Header />
-      <Hero />
-      <SelectedWork />
-      <CapabilitiesSection />
-      <Approach />
-      <Philosophy />
-      <About />
-      <Contact />
-      <Footer />
-    </div>
   );
 };
 

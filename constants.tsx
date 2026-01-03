@@ -17,18 +17,20 @@ export const PROJECTS: EnhancedProject[] = [
     metricValue: '+22%',
     description: 'Shipped guided workouts, a community sports feed, and workout tracking features that significantly improved user engagement and paid retention.',
     ctaText: 'View Case Study',
+    imageUrl: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?q=80&w=1600&auto=format&fit=crop',
   },
   {
     id: 'cerebro-ai',
     title: 'Cerebro AI',
-    headline: 'Your second brain, searchable',
+    headline: 'Personal Knowledge Engine',
     type: 'AI Productivity',
     role: 'Product Lead & Founder',
     metricLabel: 'DAU/MAU',
     metricValue: '42%',
-    description: 'Designed an AI-powered personal knowledge assistant that captures, organizes, and resurfaces information across notes, bookmarks, and conversations. Focuses on context-aware retrieval and zero-friction entry.',
+    description: 'A second brain that captures, organizes, and resurfaces information across your digital life. Built on a custom RAG architecture to provide context-aware retrieval with zero-friction entry.',
     ctaText: 'View Case Study',
     isFeatured: true,
+    imageUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4628c9759?q=80&w=1600&auto=format&fit=crop',
   },
   {
     id: 'leaklock',
@@ -41,6 +43,7 @@ export const PROJECTS: EnhancedProject[] = [
     description: 'Built a working AI-driven expense intelligence prototype that surfaces forgotten subscriptions, reduces cancellation friction, and detects recurring overcharges and spending anomalies across digital payments.',
     ctaText: 'View Case Study',
     isFeatured: true,
+    imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1600&auto=format&fit=crop',
   },
   {
     id: 'hinge-roadmap',
@@ -52,6 +55,7 @@ export const PROJECTS: EnhancedProject[] = [
     metricValue: 'Significant Lift',
     description: 'Product improvement roadmap aimed at reducing superficial swiping by using behavioral nudges and intentional free-tier limits to encourage meaningful connections.',
     ctaText: 'View Roadmap',
+    imageUrl: 'https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?q=80&w=1600&auto=format&fit=crop',
   },
   {
     id: 'nike-app',
@@ -63,6 +67,7 @@ export const PROJECTS: EnhancedProject[] = [
     metricValue: 'Optimized',
     description: 'Deep-dive analysis of Nike’s mobile app with prioritized recommendations to improve user engagement and purchase conversion through personalized membership experiences, curated content, and targeted rewards.',
     ctaText: 'View Analysis',
+    imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop',
   },
 ];
 
@@ -80,7 +85,7 @@ export const SECONDARY_PROJECTS: Project[] = [
     title: 'Apple Stock Prediction',
     headline: 'Technical ML modeling',
     type: 'Technical Project',
-    description: 'Built an interactive analytics and forecasting dashboard to explore historical Apple stock performance and generate short-term price forecasts. The product combines financial data visualization with time-series modeling to help users understand trends, volatility, and potential future movements in a single, intuitive interface.',
+    description: 'Built an interactive analytics and forecasting dashboard to explore historical Apple stock performance and generate short-term price forecasts.',
     ctaText: 'View Model',
   },
   {
@@ -104,22 +109,22 @@ export const SECONDARY_PROJECTS: Project[] = [
 export const CAPABILITIES: Capability[] = [
   {
     title: 'AI Product Development',
-    description: 'I define how AI features should work for real users—from recommendation engines to personalized content feeds. I specialize in bridging the gap between raw model outputs and meaningful user experiences, ensuring that technical complexity translates into intuitive interactions that drive user value.',
+    description: 'I define how AI features should work for real users—from recommendation engines to personalized content feeds. I specialize in bridging the gap between raw model outputs and meaningful user experiences.',
     proof: 'Hands-on experience with LLMs & RAG systems'
   }, 
   {
     title: 'Growth & Retention',
-    description: 'I diagnose what\'s breaking in your user journey and run high-velocity experiments that move the numbers. I\'ve turned declining user engagement into measurable lifts by identifying high-leverage friction points and deploying targeted A/B tests that optimize the core product loop.',
+    description: 'I diagnose what\'s breaking in your user journey and run high-velocity experiments that move the numbers. I\'ve turned declining user engagement into measurable lifts by identifying high-leverage friction points.',
     proof: 'Proven engagement & stickiness growth'
   },
   {
     title: 'Data-Informed Strategy',
-    description: 'I turn complex behavioral data into actionable product strategy. Grounded in statistical analysis, I help teams cut through vanity metrics and prioritize the signals that matter for durable growth and real user value.',
+    description: 'I turn complex behavioral data into actionable product strategy. Grounded in statistical analysis, I help teams cut through vanity metrics and prioritize the signals that matter.',
     proof: 'PMP-certified · MS in Analytics'
   },
   {
     title: '0→1 Product Thinking',
-    description: 'I lead 0→1 product development by converting ambiguous problems into focused roadmaps backed by clear metrics and technical feasibility. I’ve driven the journey from discovery to MVP across productivity, fintech, and social products, ensuring early validation before scale.',
+    description: 'I lead 0→1 product development by converting ambiguous problems into focused roadmaps backed by clear metrics and technical feasibility.',
     proof: '0→1 ownership across 3+ AI-first products'
   }
 ];
