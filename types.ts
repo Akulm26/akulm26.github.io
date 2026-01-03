@@ -1,18 +1,17 @@
-
 export interface Project {
   id: string;
   title: string;
   headline: string;
   type: string;
   description: string;
-  tags: string[];
   ctaText: string;
   isFeatured?: boolean;
+  imageUrl?: string;
 }
 
 export interface Capability {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
   proof: string;
 }
