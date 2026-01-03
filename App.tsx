@@ -663,57 +663,47 @@ const SelectedWork: React.FC<{
               </span>
 
               <div className={`flex flex-col lg:flex-row gap-16 lg:gap-32 items-start ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                {project.id !== 'cerebro-ai' ? (
-                  <div className="w-full lg:w-[60%] relative group/img-wrapper flex flex-col md:flex-row gap-6">
-                    <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative">
-                      <img 
-                        src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1600/1200`} 
-                        alt={project.title} 
-                        className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img-wrapper:opacity-100 transition-opacity flex flex-col items-center justify-center gap-4 p-4">
-                        <button 
-                          onClick={() => onAnimate(project.imageUrl || '')}
-                          className="w-full max-w-xs bg-white text-text-primary px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2"
-                        >
-                          <Clapperboard size={18} className="text-accent" />
-                          Veo Animator
-                        </button>
-                        <button 
-                          onClick={() => onEdit(project.imageUrl || '', project.id)}
-                          className="w-full max-w-xs bg-accent text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2"
-                        >
-                          <ImageIcon size={18} />
-                          Nano Banana Edit
-                        </button>
-                      </div>
+                <div className="w-full lg:w-[60%] relative group/img-wrapper flex flex-col md:flex-row gap-6">
+                  <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative">
+                    <img 
+                      src={project.imageUrl || `https://picsum.photos/seed/${project.id}/1600/1200`} 
+                      alt={project.title} 
+                      className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img-wrapper:opacity-100 transition-opacity flex flex-col items-center justify-center gap-4 p-4">
+                      <button 
+                        onClick={() => onAnimate(project.imageUrl || '')}
+                        className="w-full max-w-xs bg-white text-text-primary px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2"
+                      >
+                        <Clapperboard size={18} className="text-accent" />
+                        Veo Animator
+                      </button>
+                      <button 
+                        onClick={() => onEdit(project.imageUrl || '', project.id)}
+                        className="w-full max-w-xs bg-accent text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2"
+                      >
+                        <ImageIcon size={18} />
+                        Nano Banana Edit
+                      </button>
                     </div>
-
-                    {/* Right side of Cerebro AI resulting image display - REMOVED */}
                   </div>
-                ) : (
-                  <div className="w-full lg:w-[60%] relative group/img-wrapper flex flex-col md:flex-row gap-6">
-                    <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative">
-                      <img 
-                        src="https://raw.githubusercontent.com/Akulm26/portfolio/main/Screenshot%202026-01-02%20at%2023.47.43.png"
-                        alt={project.title} 
-                        className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
-                      />
-                    </div>
-                    <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative border-4 border-accent/20">
+
+                  {/* Right side of Cerebro AI resulting image display */}
+                  {project.id === 'cerebro-ai' && editedImages[project.id] && (
+                    <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl border-4 border-accent/20 animate-in fade-in slide-in-from-right-10 duration-1000">
                       <div className="absolute top-4 left-4 z-10 bg-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
-                        AI Generated
+                        AI Result
                       </div>
                       <img 
-                        src="https://raw.githubusercontent.com/Akulm26/portfolio/main/Gemini_Generated_Image_fwqjsofwqjsofwqj.png"
-                        alt="AI Generated Result" 
-                        className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
+                        src={editedImages[project.id]} 
+                        alt="Edited Cerebro AI" 
+                        className="w-full aspect-[4/3] object-cover"
                       />
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
 
-                <div className={`w-full ${project.id !== 'cerebro-ai' ? 'lg:w-[40%]' : 'lg:w-[40%]'} pt-8 space-y-8`}>
+                <div className="w-full lg:w-[40%] pt-8 space-y-8">
                   <div className="flex items-center gap-4">
                     <span className="text-accent font-bold uppercase tracking-widest text-[10px] bg-blue-50 px-3 py-1 rounded-full">{project.type}</span>
                     {project.metricValue && (
