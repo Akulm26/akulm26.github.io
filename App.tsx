@@ -8,17 +8,15 @@ const Header: React.FC = () => {
   const [activeSection, setActiveSection] = useState('');
 
   const navLinks = [
-    { name: 'Work', href: '#work' },
-    { name: 'Approach', href: '#approach' },
-    { name: 'Philosophy', href: '#philosophy' },
     { name: 'About', href: '#about' },
-    { name: 'Connect', href: '#connect' },
+    { name: 'Projects', href: '#work' },
+    { name: 'Work', href: '#approach' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      const sections = navLinks.map(link => link.href.substring(1));
+      const sections = [...navLinks.map(link => link.href.substring(1)), 'connect'];
       let current = '';
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -71,8 +69,8 @@ const Header: React.FC = () => {
               <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${activeSection === link.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </a>
           ))}
-          <a href="#connect" onClick={(e) => handleLinkClick(e, '#connect')} className="bg-accent text-white px-6 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-accent/20">
-            Let's Talk
+          <a href="#connect" onClick={(e) => handleLinkClick(e, '#connect')} className="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-accent/20">
+            Connect
           </a>
         </div>
         <button className="md:hidden text-text-primary p-2 z-50" onClick={() => setIsOpen(!isOpen)}>
@@ -84,6 +82,7 @@ const Header: React.FC = () => {
           {navLinks.map((link) => (
             <a key={link.name} href={link.href} className="text-4xl font-display font-bold text-text-primary" onClick={(e) => handleLinkClick(e, link.href)}>{link.name}</a>
           ))}
+          <a href="#connect" className="text-4xl font-display font-bold text-accent" onClick={(e) => handleLinkClick(e, '#connect')}>Connect</a>
         </div>
       </div>
     </nav>
@@ -490,7 +489,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="py-12 bg-white border-t border-slate-100">
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-text-secondary text-sm">
-        <p>© {new Date().getFullYear()} Akul S. Malhotra. Built for conversion.</p>
+        <p>© {new Date().getFullYear()} Akul S. Malhotra. Carefully engineered, usually caffeinated.</p>
         <div className="flex gap-8">
           <a href="#" className="hover:text-accent transition-colors">Resume</a>
           <a href="https://linkedin.com" className="hover:text-accent transition-colors">LinkedIn</a>
