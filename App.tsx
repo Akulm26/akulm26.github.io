@@ -702,7 +702,7 @@ const SelectedWork: React.FC<{
                         AI Generated
                       </div>
                       <img
-                        src="https://drive.google.com/uc?export=view&id=1McZ75tTv4wYUXN_wZ0_LVFAQcS7kREDZ"
+                        src="https://drive.google.com/uc?export=view&id=1qr9IAESUlnN25VaKNMi59V5C2_RmHRb6"
                         alt="AI Generated Result"
                         className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
                         crossOrigin="anonymous"
