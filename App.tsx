@@ -663,7 +663,7 @@ const SelectedWork: React.FC<{
               </span>
 
               <div className={`flex flex-col lg:flex-row gap-16 lg:gap-32 items-start ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                {project.id !== 'cerebro-ai' && (
+                {project.id !== 'cerebro-ai' ? (
                   <div className="w-full lg:w-[60%] relative group/img-wrapper flex flex-col md:flex-row gap-6">
                     <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative">
                       <img 
@@ -691,9 +691,19 @@ const SelectedWork: React.FC<{
 
                     {/* Right side of Cerebro AI resulting image display - REMOVED */}
                   </div>
+                ) : (
+                  <div className="w-full lg:w-[60%] relative group/img-wrapper">
+                    <div className="flex-1 rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl transition-all duration-700 group-hover:shadow-blue-200/50 group-hover:scale-[1.01] relative">
+                      <img 
+                        src="https://raw.githubusercontent.com/Akulm26/portfolio/main/Screenshot%202026-01-02%20at%2023.47.43.png"
+                        alt={project.title} 
+                        className="w-full aspect-[4/3] object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-700"
+                      />
+                    </div>
+                  </div>
                 )}
 
-                <div className={`w-full ${project.id !== 'cerebro-ai' ? 'lg:w-[40%]' : ''} pt-8 space-y-8`}>
+                <div className={`w-full ${project.id !== 'cerebro-ai' ? 'lg:w-[40%]' : 'lg:w-[40%]'} pt-8 space-y-8`}>
                   <div className="flex items-center gap-4">
                     <span className="text-accent font-bold uppercase tracking-widest text-[10px] bg-blue-50 px-3 py-1 rounded-full">{project.type}</span>
                     {project.metricValue && (
