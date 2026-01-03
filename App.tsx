@@ -108,51 +108,55 @@ const Hero: React.FC = () => {
 
             <div className="grid sm:grid-cols-3 gap-6 max-w-4xl">
               {[
-                { icon: <Workflow size={20} />, label: 'Builder', text: 'Shipping intelligent systems that move real behavior.' },
-                { icon: <Brain size={20} />, label: 'Bridge', text: 'Translating raw science into consumer features.' },
-                { icon: <BarChart3 size={20} />, label: 'Craft', text: 'Prioritizing metrics that reflect human value.' }
+                { icon: <Workflow size={20} />, label: 'Build', text: 'Shipping systems that change real user behavior.' },
+                { icon: <RefreshCw size={20} />, label: 'Translate', text: 'Turning messy signals into usable product decisions.' },
+                { icon: <BarChart3 size={20} />, label: 'Measure', text: 'Defining metrics that reflect real human value.' }
               ].map((item, i) => (
                 <div key={i} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-xl transition-all duration-300 group">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 text-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     {item.icon}
                   </div>
-                  <h4 className="font-bold text-text-primary mb-2">{item.label}</h4>
+                  <h4 className="font-bold text-text-primary mb-2 whitespace-nowrap">{item.label}</h4>
                   <p className="text-text-secondary text-sm leading-relaxed">{item.text}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative group perspective-1000">
-            <div className="absolute -inset-4 bg-gradient-to-tr from-accent/5 to-transparent blur-2xl rounded-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-            <div className="relative w-full aspect-[1/1.1] rounded-[60px] overflow-hidden bg-slate-50 border border-slate-100 shadow-2xl transition-all duration-700 hover:rotate-1 hover:scale-[1.01]">
-              <img 
-                src="https://PixHostPullZone.b-cdn.net/84c02f9f-af14-4135-93e9-15c98ca3833f/a4b8r0q5mjwhf78n/1767334659657-rg1gm8x2.png" 
-                alt="Akul Malhotra" 
-                className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none"></div>
+          <div className="relative z-20 flex flex-col items-center">
+            <div className="relative group perspective-1000 w-full">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-accent/5 to-transparent blur-2xl rounded-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative w-full aspect-[1/1.1] rounded-[60px] overflow-hidden bg-slate-50 border border-slate-100 shadow-2xl transition-all duration-700 hover:rotate-1 hover:scale-[1.01]">
+                <img 
+                  src="https://PixHostPullZone.b-cdn.net/84c02f9f-af14-4135-93e9-15c98ca3833f/a4b8r0q5mjwhf78n/1767334659657-rg1gm8x2.png" 
+                  alt="Akul Malhotra" 
+                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none"></div>
+              </div>
             </div>
 
-            {/* Quick Contact Actions - Positioned BELOW the image */}
-            <div className="mt-8 flex items-center justify-center gap-6 animate-in fade-in slide-in-from-top-4 duration-1000 delay-300">
-              <a href="mailto:akul@example.com" className="group/action flex flex-col items-center gap-2">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-accent/20 hover:-translate-y-1">
+            {/* Quick Contact Actions - Positioned BELOW the image with explicit clickable properties */}
+            <div className="mt-10 flex items-center justify-center gap-8 relative z-30">
+              <a href="mailto:akul@example.com" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-accent/30 hover:-translate-y-2 active:scale-95">
                   <Mail size={24} />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary opacity-0 group-hover/action:opacity-100 transition-opacity">Email</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-accent opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Email</span>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5] transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[#0077B5]/20 hover:-translate-y-1">
+              
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5] transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[#0077B5]/30 hover:-translate-y-2 active:scale-95">
                   <Linkedin size={24} />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary opacity-0 group-hover/action:opacity-100 transition-opacity">LinkedIn</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#0077B5] opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">LinkedIn</span>
               </a>
-              <a href="tel:+1234567890" className="group/action flex flex-col items-center gap-2">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-green-600 hover:text-white hover:border-green-600 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-green-600/20 hover:-translate-y-1">
+
+              <a href="tel:+1234567890" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-green-600 hover:text-white hover:border-green-600 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-green-600/30 hover:-translate-y-2 active:scale-95">
                   <Phone size={24} />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary opacity-0 group-hover/action:opacity-100 transition-opacity">Call</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-green-600 opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Call</span>
               </a>
             </div>
           </div>
@@ -242,7 +246,7 @@ const SelectedWork: React.FC = () => {
           </div>
 
           {showSecondary && (
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 duration-700">
               {SECONDARY_PROJECTS.map((project) => (
                 <div key={project.id} className="bg-slate-50 p-12 rounded-[40px] hover:bg-white border border-transparent hover:border-accent/10 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between">
                   <div>
@@ -390,7 +394,7 @@ const About: React.FC = () => {
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.05] group-hover:scale-100" 
               />
               
-              <div className="absolute bottom-8 right-8 glass p-5 rounded-2xl shadow-xl border border-white/20 animate-in fade-in zoom-in duration-1000">
+              <div className="absolute bottom-8 right-8 glass p-5 rounded-2xl shadow-xl border border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-text-primary">Currently: Scaling AI Products</span>
