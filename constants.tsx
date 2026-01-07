@@ -8,18 +8,6 @@ export interface EnhancedProject extends Project {
 
 export const PROJECTS: EnhancedProject[] = [
   {
-    id: 'fitness-app',
-    title: 'Fitness Online',
-    headline: 'Engagement feature that drove major gains in user stickiness',
-    type: 'Customer-Facing Product',
-    role: 'Lead PM',
-    metricLabel: 'Paid Retention',
-    metricValue: '+22%',
-    description: 'Shipped guided workouts, a community sports feed, and workout tracking features that significantly improved user engagement and paid retention.',
-    ctaText: 'View Case Study',
-    imageUrl: 'https://raw.githubusercontent.com/Akulm26/portfolio/main/public/fitness%20app',
-  },
-  {
     id: 'cerebro-ai',
     title: 'Cerebro AI',
     headline: 'Personal Knowledge Engine',
