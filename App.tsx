@@ -602,7 +602,7 @@ const Hero: React.FC = () => {
                 <span className="text-[10px] font-bold uppercase tracking-widest text-accent opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Email</span>
               </a>
               
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+              <a href="https://www.linkedin.com/in/malhotraakulsuhail/" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
                 <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5] transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[#0077B5]/30 hover:-translate-y-2 active:scale-95">
                   <Linkedin size={24} />
                 </div>
@@ -869,7 +869,7 @@ const Contact: React.FC = () => {
           <h3 className="text-4xl md:text-6xl font-display font-bold text-text-primary tracking-tighter mb-12">Let's build something <br /> meaningful.</h3>
           <div className="flex flex-wrap justify-center gap-6">
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 bg-text-primary text-white rounded-2xl font-bold hover:bg-accent transition-all shadow-xl shadow-slate-200 group"><Mail size={20} /><span>Email Me</span></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 bg-white text-text-primary border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all"><Linkedin size={20} className="text-[#0077B5]" /><span>LinkedIn</span></a>
+            <a href="https://www.linkedin.com/in/malhotraakulsuhail/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 bg-white text-text-primary border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all"><Linkedin size={20} className="text-[#0077B5]" /><span>LinkedIn</span></a>
           </div>
         </div>
       </div>
@@ -884,7 +884,7 @@ const Footer: React.FC = () => {
         <p>© {new Date().getFullYear()} Akul S. Malhotra. Carefully engineered, usually caffeinated.</p>
         <div className="flex gap-8">
           <a href="#" className="hover:text-accent transition-colors">Resume</a>
-          <a href="https://linkedin.com" className="hover:text-accent transition-colors">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/malhotraakulsuhail/" className="hover:text-accent transition-colors">LinkedIn</a>
         </div>
       </div>
     </footer>
