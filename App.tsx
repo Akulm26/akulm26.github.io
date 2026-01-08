@@ -622,11 +622,12 @@ const Hero: React.FC = () => {
   );
 };
 
-const SelectedWork: React.FC<{ 
+const SelectedWork: React.FC<{
   onAnimate: (img: string) => void;
   onEdit: (img: string, projectId: string) => void;
   editedImages: Record<string, string>;
-}> = ({ onAnimate, onEdit, editedImages }) => {
+  onCaseStudyClick: (projectId: string) => void;
+}> = ({ onAnimate, onEdit, editedImages, onCaseStudyClick }) => {
   const [showSecondary, setShowSecondary] = useState(false);
 
   return (
@@ -662,10 +663,20 @@ const SelectedWork: React.FC<{
                 <p className="text-lg font-medium text-text-secondary/80 mb-4 line-clamp-1 italic">"{project.headline}"</p>
                 <p className="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">{project.description}</p>
                 <div className="mt-auto">
-                  <a href="#" className="inline-flex items-center space-x-2 text-text-primary font-bold border-b-2 border-accent pb-1 hover:border-accent/40 transition-all">
-                    <span>{project.ctaText}</span>
-                    <ExternalLink size={14} />
-                  </a>
+                  {project.id === 'cerebro-ai' ? (
+                    <button
+                      onClick={() => onCaseStudyClick(project.id)}
+                      className="inline-flex items-center space-x-2 text-text-primary font-bold border-b-2 border-accent pb-1 hover:border-accent/40 transition-all cursor-pointer"
+                    >
+                      <span>{project.ctaText}</span>
+                      <ExternalLink size={14} />
+                    </button>
+                  ) : (
+                    <a href="#" className="inline-flex items-center space-x-2 text-text-primary font-bold border-b-2 border-accent pb-1 hover:border-accent/40 transition-all">
+                      <span>{project.ctaText}</span>
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -849,6 +860,38 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
+  );
+};
+
+const CerebroCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white">
+      {/* Header */}
+      <nav className="fixed top-0 left-0 right-0 z-50 glass py-4 shadow-sm">
+        <div className="container mx-auto px-6 flex justify-between items-center">
+          <button onClick={onBack} className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors">
+            <ArrowRight className="rotate-180" size={18} />
+            <span className="font-medium">Back to Portfolio</span>
+          </button>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="bg-accent text-white px-6 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all">
+            Get in Touch
+          </a>
+        </div>
+      </nav>
+
+      {/* Centered Title */}
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-text-primary tracking-tight">
+            Cerebro AI <span className="text-accent">Case Study</span>
+          </h1>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -1063,14 +1106,27 @@ const App: React.FC = () => {
     }
   };
 
+  const handleCaseStudyClick = (projectId: string) => {
+    setCurrentPage(projectId);
+  };
+
+  const handleBackToHome = () => {
+    setCurrentPage('home');
+  };
+
+  if (currentPage === 'cerebro-ai') {
+    return <CerebroCaseStudyPage onBack={handleBackToHome} />;
+  }
+
   return (
     <div className="min-h-screen font-sans text-text-primary">
       <Header />
       <Hero />
-      <SelectedWork 
-        onAnimate={openAnimate} 
+      <SelectedWork
+        onAnimate={openAnimate}
         onEdit={openEdit}
         editedImages={editedImages}
+        onCaseStudyClick={handleCaseStudyClick}
       />
       <CapabilitiesSection />
       <Approach />
@@ -1078,10 +1134,10 @@ const App: React.FC = () => {
       <Contact />
       <Footer />
       <VeoModal isOpen={isAnimateModalOpen} onClose={() => setIsAnimateModalOpen(false)} initialImage={modalImage} />
-      <ImageEditorModal 
-        isOpen={isEditModalOpen} 
-        onClose={() => setIsEditModalOpen(false)} 
-        initialImage={modalImage} 
+      <ImageEditorModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        initialImage={modalImage}
         onImageEdited={handleImageEdited}
       />
     </div>
