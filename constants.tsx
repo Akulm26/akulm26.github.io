@@ -43,7 +43,7 @@ export const PROJECTS: EnhancedProject[] = [
     metricValue: 'Significant Lift',
     description: 'Product improvement roadmap aimed at reducing superficial swiping by using behavioral nudges and intentional free-tier limits to encourage meaningful connections.',
     ctaText: 'View Roadmap',
-    imageUrl: 'https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?q=80&w=1600&auto=format&fit=crop',
+    imageUrl: 'https://techcrunch.com/wp-content/uploads/2022/05/Hinge_Self-Care_Prompts_01.jpg?w=1024',
   },
   {
     id: 'nike-app',
