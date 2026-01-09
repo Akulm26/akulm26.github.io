@@ -192,26 +192,28 @@ export const CASE_STUDIES: Record<string, CaseStudyContent> = {
   },
   'leaklock': {
     id: 'leaklock',
-    overview: 'LeakLock is an AI-driven expense intelligence platform that automatically surfaces forgotten subscriptions, detects recurring overcharges, and identifies spending anomalies across digital payments.',
-    problem: 'The average consumer loses $512 annually to forgotten subscriptions and unnoticed recurring charges. Traditional budgeting apps require manual categorization and fail to proactively identify financial leaks.',
+    overview: 'LeakLock is an invisible money tracker that automatically detects forgotten subscriptions and recurring charges through on-device SMS parsing. Built with privacy-first architecture, all processing happens locally on your Android device—no cloud uploads, no data collection.',
+    problem: 'I kept paying for things I wasn\'t using. A free trial I forgot to cancel. A duplicate charge I didn\'t notice. An app I subscribed to once and never opened again. Every month, small amounts quietly left my account - ₹99 here, ₹199 there. Individually tiny. Collectively, a leak. The worst part? I only discovered these when I actually sat down and scrolled through months of bank statements. By then, I\'d already lost money I could have saved. In India, this problem is everywhere. UPI mandates made payments frictionless - but also invisible. You tap once, and suddenly you\'re auto-charged every month without a reminder. Research shows 71% of users report hidden charges, and companies see up to 200% revenue uplift simply because people forget to cancel. That\'s when I realized: the problem isn\'t spending money. It\'s not seeing where it quietly leaks.',
     approach: [
-      'Analyzed spending patterns from anonymized transaction data to identify common leak patterns',
-      'Designed ML models to detect subscription patterns, price increases, and anomalous charges',
-      'Created a frictionless cancellation flow that reduces the effort to cancel unwanted subscriptions',
-      'Built notification systems that alert users at optimal times for engagement'
+      'Asked "Why do people keep paying for things they don\'t use?" - Three reasons: Forgetting (free trials convert silently), Friction (cancelling is intentionally hard with dark patterns), and Invisibility (recurring charges hide in transaction history)',
+      'Realized existing apps require manual entry—which means users must remember what they\'re forgetting. That\'s broken by design',
+      'Built LeakLock with automation at the core: scan SMS messages locally, detect subscriptions automatically, and surface them before the next charge hits',
+      'Designed privacy-first architecture: all SMS parsing happens on-device, nothing uploaded to cloud'
     ],
-    solution: 'An intelligent financial watchdog that connects to your accounts, automatically categorizes transactions, and proactively alerts you to money leaks before they compound.',
+    solution: 'A privacy-first, automation-led tracking system. Auto-detection finds subscriptions via local SMS parsing (no manual entry). Smart reminders alert before renewal, not after. One-tap pause/cancel flow with reason capture. Duplicate prevention validates by name + date. All SMS parsed on-device with no cloud storage.',
     results: [
-      { metric: 'Avg Savings', value: '$450/yr', description: 'Average annual savings identified per user' },
-      { metric: 'Detection Rate', value: '94%', description: 'Accuracy in identifying subscription charges' },
-      { metric: 'Cancellation Rate', value: '3x', description: 'Increase in successful cancellations vs manual process' }
+      { metric: 'First Sync Success', value: '≥1 sub', description: 'Users see value immediately on first login - no setup needed' },
+      { metric: 'Avg Savings', value: '₹100-₹500/mo', description: 'Real money recovered from paused or cancelled subscriptions' },
+      { metric: 'Day-30 Retention', value: '≥25%', description: 'Users stick around because they\'re saving money' },
+      { metric: 'NPS Target', value: '≥45', description: 'Users feel in control and trust the app' }
     ],
     learnings: [
-      'Users respond better to specific dollar amounts than percentages',
-      'Timing of notifications significantly impacts action rates',
-      'Trust is paramount when dealing with financial data—security messaging must be prominent'
+      'Automation removes the core friction. The entire problem is that people forget. Asking them to manually enter subscriptions defeats the purpose. SMS parsing - done locally and privately - solved this elegantly.',
+      'Privacy is a feature, not a tradeoff. Indian users are increasingly wary of apps accessing their data. By processing everything on-device and never uploading messages, LeakLock turned a potential trust barrier into a selling point.',
+      'Timing matters more than information. Showing users a list of subscriptions is useful. Alerting them three days before a renewal - when they can still act - is what actually saves money.',
+      'Dark patterns are the real enemy. Companies make cancellation intentionally hard. LeakLock\'s value isn\'t just visibility - it\'s giving users a fighting chance against systems designed to make them forget.'
     ],
-    tools: ['Python', 'Plaid API', 'TensorFlow', 'React Native', 'PostgreSQL']
+    tools: ['Android', 'SMS Parsing', 'On-Device Processing', 'UPI Mandate Detection', 'Local Storage']
   },
   'hinge-roadmap': {
     id: 'hinge-roadmap',
