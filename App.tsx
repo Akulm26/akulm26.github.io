@@ -2892,38 +2892,42 @@ const ElevnCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </section>
 
       {/* What I Learned */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16 bg-slate-900 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">What I Learned</h2>
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-xl border border-slate-200">
-                <h3 className="text-xl font-bold text-accent mb-3">Marketplace balance is everything.</h3>
-                <p className="text-text-secondary leading-relaxed">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">What I Learned</h2>
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-bold mb-3">Marketplace balance is everything.</h3>
+                <p className="text-slate-300 leading-relaxed">
                   A dating app is a two-sided marketplace. If one side faces structural barriers (men stuck in waitlist limbo), the other side suffers too (women see thin, distant pools). Safety and liquidity must be balanced.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl border border-slate-200">
-                <h3 className="text-xl font-bold text-accent mb-3">Monetization must follow value.</h3>
-                <p className="text-text-secondary leading-relaxed">
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">Monetization must follow value.</h3>
+                <p className="text-slate-300 leading-relaxed">
                   Showing subscription options to waitlisted users who haven't experienced the product creates resentment, not conversion. Value first, paywall later.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl border border-slate-200">
-                <h3 className="text-xl font-bold text-accent mb-3">Trust can be earned, not just vouched.</h3>
-                <p className="text-text-secondary leading-relaxed">
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">Trust can be earned, not just vouched.</h3>
+                <p className="text-slate-300 leading-relaxed">
                   Endorsement is one signal of trust. But behavioral data - respectful chat patterns, low report rates, profile completeness - can be equally powerful and more inclusive.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl border border-slate-200">
-                <h3 className="text-xl font-bold text-accent mb-3">IRL-first breaks without local density.</h3>
-                <p className="text-text-secondary leading-relaxed">
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">IRL-first breaks without local density.</h3>
+                <p className="text-slate-300 leading-relaxed">
                   Elevn's core promise is offline connections. But when matches are 200km away, that promise feels hollow. Tier-2 seeding isn't optional - it's existential.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-xl border border-slate-200">
-                <h3 className="text-xl font-bold text-accent mb-3">Perception shapes reality.</h3>
-                <p className="text-text-secondary leading-relaxed">
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">Perception shapes reality.</h3>
+                <p className="text-slate-300 leading-relaxed">
                   Online sentiment calls Elevn "anti-men" or "exclusive." Whether that's fair or not, it's a brand problem. A narrative shift toward "balanced safety for both genders" could unlock growth without compromising the mission.
                 </p>
               </div>
