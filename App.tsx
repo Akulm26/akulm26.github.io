@@ -1134,7 +1134,7 @@ const LeakLockCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass py-4 shadow-sm">
         <div className="container mx-auto px-6 flex justify-between items-center">
@@ -1148,14 +1148,257 @@ const LeakLockCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
         </div>
       </nav>
 
-      {/* Centered Title */}
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-text-primary tracking-tight">
-            LeakLock <span className="text-accent">Case Study</span>
-          </h1>
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 bg-gradient-to-b from-slate-50 to-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-7xl font-display font-bold text-text-primary mb-4">
+              LeakLock
+            </h1>
+            <p className="text-2xl md:text-3xl text-text-secondary mb-6">Invisible Money Tracker</p>
+            <div className="flex flex-wrap justify-center gap-3 mt-8 mb-8">
+              {['SMS Parsing', 'UPI Mandates', 'Local Processing', 'Privacy-First', 'Android'].map((tag) => (
+                <span key={tag} className="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-bold">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8">
+              <a
+                href="https://leaklock-gold-guard.lovable.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-2xl font-bold text-lg hover:brightness-110 transition-all shadow-xl hover:shadow-accent/30"
+              >
+                <ExternalLink size={20} />
+                <span>Try Live Demo</span>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Pain Point */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">Pain Point</h2>
+            <div className="space-y-6 text-lg text-text-secondary leading-relaxed">
+              <p className="font-semibold text-text-primary">I kept paying for things I wasn't using.</p>
+              <p>A free trial I forgot to cancel. A duplicate charge I didn't notice. An app I subscribed to once and never opened again. Every month, small amounts quietly left my account - ₹99 here, ₹199 there. Individually tiny. Collectively, a leak.</p>
+              <p>The worst part? I only discovered these when I actually sat down and scrolled through months of bank statements. By then, I'd already lost money I could have saved.</p>
+              <p>In India, this problem is everywhere. UPI mandates made payments frictionless - but also invisible. You tap once, and suddenly you're auto-charged every month without a reminder. Research shows 71% of users report hidden charges, and companies see up to 200% revenue uplift simply because people forget to cancel.</p>
+              <p className="font-semibold text-text-primary">That's when I realized: the problem isn't spending money. It's not seeing where it quietly leaks.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Approach */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">Approach</h2>
+            <div className="space-y-6 text-lg text-text-secondary leading-relaxed">
+              <p>I started by asking: <span className="font-semibold text-text-primary">Why do people keep paying for things they don't use?</span></p>
+              <p>Three reasons stood out:</p>
+              <ol className="space-y-4 ml-6 list-decimal list-outside">
+                <li><span className="font-semibold text-text-primary">Forgetting</span> - Free trials convert silently. Subscriptions renew without reminders.</li>
+                <li><span className="font-semibold text-text-primary">Friction</span> - Cancelling is intentionally hard. Companies use "roach motel" dark patterns - easy to enter, hard to leave.</li>
+                <li><span className="font-semibold text-text-primary">Invisibility</span> - Recurring charges hide in transaction history. No single dashboard shows what's draining your wallet.</li>
+              </ol>
+              <p>Existing apps required manual entry - which meant users had to remember the very thing they were forgetting. That's broken by design.</p>
+              <p>So I built LeakLock with <span className="font-semibold text-text-primary">automation at the core</span>: scan SMS messages locally, detect subscriptions automatically, and surface them before the next charge hits. No manual entry. No cloud uploads. Just visibility.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Solution */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">Solution</h2>
+
+            <h3 className="text-2xl font-bold text-text-primary mb-6">Architecture: Privacy-first, automation-led tracking</h3>
+
+            {/* Table */}
+            <div className="overflow-x-auto mb-8">
+              <table className="w-full border-collapse bg-white rounded-xl overflow-hidden shadow-sm">
+                <thead>
+                  <tr className="bg-slate-100">
+                    <th className="px-6 py-4 text-left font-bold text-text-primary">Stage</th>
+                    <th className="px-6 py-4 text-left font-bold text-text-primary">What it does</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-slate-100">
+                    <td className="px-6 py-4 font-semibold text-text-primary">Onboarding</td>
+                    <td className="px-6 py-4 text-text-secondary">OTP login → Request SMS permission → Auto-scan inbox</td>
+                  </tr>
+                  <tr className="border-t border-slate-100 bg-slate-50/50">
+                    <td className="px-6 py-4 font-semibold text-text-primary">Detection</td>
+                    <td className="px-6 py-4 text-text-secondary">Parse SMS locally for subscription patterns (UPI mandates, renewals, trials)</td>
+                  </tr>
+                  <tr className="border-t border-slate-100">
+                    <td className="px-6 py-4 font-semibold text-text-primary">Dashboard</td>
+                    <td className="px-6 py-4 text-text-secondary">Show active plans, renewal dates, monthly/lifetime savings</td>
+                  </tr>
+                  <tr className="border-t border-slate-100 bg-slate-50/50">
+                    <td className="px-6 py-4 font-semibold text-text-primary">Action</td>
+                    <td className="px-6 py-4 text-text-secondary">Pause, cancel, or set custom reminders - all from one place</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="text-2xl font-bold text-text-primary mb-6">Key Features:</h3>
+            <ul className="space-y-3 text-lg text-text-secondary leading-relaxed list-none mb-8">
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Auto-detection</strong> - No manual entry; subscriptions found via SMS parsing</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Smart reminders</strong> - Alerts before renewal, not after</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Pause/Cancel flow</strong> - One-tap actions with cancellation reason capture</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Duplicate prevention</strong> - Validates by name + date to avoid duplicates</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Local processing</strong> - All SMS parsed on-device; nothing uploaded to cloud</span>
+              </li>
+            </ul>
+
+            <h3 className="text-2xl font-bold text-text-primary mb-6">Stack:</h3>
+            <ul className="space-y-3 text-lg text-text-secondary leading-relaxed list-none">
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Platform:</strong> Android (MVP)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Processing:</strong> On-device SMS parsing</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span><strong className="text-text-primary">Security:</strong> No cloud storage of messages; local-only architecture</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">Impact</h2>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div className="text-sm font-bold text-accent mb-2">Metric</div>
+                <div className="text-2xl font-bold text-text-primary mb-2">First Sync Success Rate</div>
+                <div className="text-sm font-bold text-text-primary mb-2">Target: ≥1 subscription on first login</div>
+                <p className="text-sm text-text-secondary">Users see value immediately - no setup needed</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div className="text-sm font-bold text-accent mb-2">Metric</div>
+                <div className="text-2xl font-bold text-text-primary mb-2">Day-7 Retention</div>
+                <div className="text-sm font-bold text-text-primary mb-2">Target: Benchmark target</div>
+                <p className="text-sm text-text-secondary">Users return after first reminder cycle - proof alerts matter</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div className="text-sm font-bold text-accent mb-2">Metric</div>
+                <div className="text-2xl font-bold text-text-primary mb-2">Day-30 Retention</div>
+                <div className="text-sm font-bold text-text-primary mb-2">Target: ≥25%</div>
+                <p className="text-sm text-text-secondary">Users stick around because they're saving money</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div className="text-sm font-bold text-accent mb-2">Metric</div>
+                <div className="text-2xl font-bold text-text-primary mb-2">Avg. Savings per User</div>
+                <div className="text-sm font-bold text-text-primary mb-2">Target: ₹100 - ₹500/month</div>
+                <p className="text-sm text-text-secondary">Real money recovered from paused or cancelled subscriptions</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div className="text-sm font-bold text-accent mb-2">Metric</div>
+                <div className="text-2xl font-bold text-text-primary mb-2">NPS</div>
+                <div className="text-sm font-bold text-text-primary mb-2">Target: ≥45</div>
+                <p className="text-sm text-text-secondary">Users feel in control and trust the app</p>
+              </div>
+            </div>
+
+            <h3 className="text-2xl font-bold text-text-primary mb-6 mt-12">What It Means:</h3>
+            <div className="space-y-6 text-lg text-text-secondary leading-relaxed">
+              <p>These metrics aren't just numbers - they represent real behavior change. First-sync success proves the automation works. Day-7 and Day-30 retention show users are getting value, not just downloading and forgetting. The savings metric? That's money back in users' pockets.</p>
+              <p>Most importantly, the NPS target reflects trust. When you're asking for SMS permissions, users need to believe you're on their side. Privacy-first architecture isn't just good practice - it's the foundation of the product's credibility.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What I Learned */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">What I Learned</h2>
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-bold mb-3">Automation removes the core friction.</h3>
+                <p className="text-slate-300 leading-relaxed">The entire problem is that people forget. Asking them to manually enter subscriptions defeats the purpose. SMS parsing - done locally and privately - solved this elegantly.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">Privacy is a feature, not a tradeoff.</h3>
+                <p className="text-slate-300 leading-relaxed">Indian users are increasingly wary of apps accessing their data. By processing everything on-device and never uploading messages, LeakLock turned a potential trust barrier into a selling point.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">Timing matters more than information.</h3>
+                <p className="text-slate-300 leading-relaxed">Showing users a list of subscriptions is useful. Alerting them three days before a renewal - when they can still act - is what actually saves money.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-3">Dark patterns are the real enemy.</h3>
+                <p className="text-slate-300 leading-relaxed">Companies make cancellation intentionally hard. LeakLock's value isn't just visibility - it's giving users a fighting chance against systems designed to make them forget.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-text-primary mb-4">Interested in working together?</h2>
+            <p className="text-text-secondary mb-8">Let's discuss how I can help with your product challenges.</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a href="https://leaklock-gold-guard.lovable.app" target="_blank" rel="noopener noreferrer" className="bg-accent text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all flex items-center gap-2">
+                <ExternalLink size={20} />
+                <span>Try Live Demo</span>
+              </a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="bg-white text-text-primary px-8 py-4 rounded-xl font-bold border-2 border-slate-200 hover:border-accent transition-all flex items-center gap-2">
+                <Mail size={20} />
+                <span>Get in Touch</span>
+              </a>
+              <button onClick={onBack} className="bg-white text-text-primary px-8 py-4 rounded-xl font-bold border-2 border-slate-200 hover:border-accent transition-all">
+                View More Projects
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
