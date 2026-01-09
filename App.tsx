@@ -1149,14 +1149,14 @@ const LeakLockCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-slate-50 to-white">
+      <section className="pt-20 pb-8 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-display font-bold text-text-primary mb-4">
               LeakLock
             </h1>
             <p className="text-2xl md:text-3xl text-text-secondary mb-6">Invisible Money Tracker</p>
-            <div className="flex flex-wrap justify-center gap-3 mt-8 mb-8">
+            <div className="flex flex-wrap justify-center gap-3 mt-6 mb-6">
               {['SMS Parsing', 'UPI Mandates', 'Local Processing', 'Privacy-First', 'Android'].map((tag) => (
                 <span key={tag} className="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-bold">
                   {tag}
@@ -1424,13 +1424,13 @@ const HingeCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16">
+      <section className="pt-20 pb-8">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-text-primary tracking-tight mb-8">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-text-primary tracking-tight mb-6">
               Hinge <span className="text-accent">Case Study</span>
             </h1>
-            <div className="mb-8">
+            <div className="mb-6">
               <a
                 href="https://hinge-product-improvemen-ww2owdm.gamma.site"
                 target="_blank"
@@ -1774,13 +1774,13 @@ const NikeCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16">
+      <section className="pt-20 pb-8">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-text-primary tracking-tight mb-8">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-text-primary tracking-tight mb-6">
               Nike Mobile App <span className="text-accent">Case Study</span>
             </h1>
-            <div className="mb-8">
+            <div className="mb-6">
               <a
                 href="https://docs.google.com/document/d/11uEhNXe_2Gsz_WBqaG-mwMipEthXKyH-838imnIESNw/edit?usp=sharing"
                 target="_blank"
