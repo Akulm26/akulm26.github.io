@@ -895,12 +895,23 @@ const CerebroCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               Cerebro AI
             </h1>
             <p className="text-2xl md:text-3xl text-text-secondary mb-6">Personal Knowledge Operating System</p>
-            <div className="flex flex-wrap justify-center gap-3 mt-8">
+            <div className="flex flex-wrap justify-center gap-3 mt-8 mb-8">
               {['RAG', 'Semantic Search', 'Vector Embeddings', 'OCR', 'pgvector', 'OpenAI', 'Gemini'].map((tag) => (
                 <span key={tag} className="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-bold">
                   {tag}
                 </span>
               ))}
+            </div>
+            <div className="mt-8">
+              <a
+                href="https://cerebro-knowledge-core.lovable.app/auth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-2xl font-bold text-lg hover:brightness-110 transition-all shadow-xl hover:shadow-accent/30"
+              >
+                <ExternalLink size={20} />
+                <span>Try Live Demo</span>
+              </a>
             </div>
           </div>
         </div>
@@ -1098,7 +1109,11 @@ const CerebroCaseStudyPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             <h2 className="text-3xl font-bold text-text-primary mb-4">Interested in working together?</h2>
             <p className="text-text-secondary mb-8">Let's discuss how I can help with your product challenges.</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="bg-accent text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all flex items-center gap-2">
+              <a href="https://cerebro-knowledge-core.lovable.app/auth" target="_blank" rel="noopener noreferrer" className="bg-accent text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all flex items-center gap-2">
+                <ExternalLink size={20} />
+                <span>Try Live Demo</span>
+              </a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="bg-white text-text-primary px-8 py-4 rounded-xl font-bold border-2 border-slate-200 hover:border-accent transition-all flex items-center gap-2">
                 <Mail size={20} />
                 <span>Get in Touch</span>
               </a>
