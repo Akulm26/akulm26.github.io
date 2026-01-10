@@ -792,25 +792,7 @@ const About: React.FC = () => {
   return (
     <section id="about" className="py-48 bg-white scroll-mt-20 overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-[1fr,1.4fr] gap-20 lg:gap-32 items-center">
-          <div className="relative group">
-            <div className="absolute -top-12 -left-12 w-48 h-48 bg-blue-50 rounded-full blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
-            <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-slate-50 rounded-full blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
-            <div className="relative z-10 aspect-[4/5.5] rounded-[48px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 bg-white">
-              <img 
-                src="https://PixHostPullZone.b-cdn.net/84c02f9f-af14-4135-93e9-15c98ca3833f/a4b8r0q5mjwhf78n/1767334659657-rg1gm8x2.png" 
-                alt="Akul" 
-                className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.05] group-hover:scale-100" 
-              />
-              <div className="absolute bottom-8 right-8 glass p-5 rounded-2xl shadow-xl border border-white/20">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-text-primary">Currently: Scaling AI Products</span>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -z-10 top-0 left-0 w-full h-full border border-accent/10 rounded-[48px] translate-x-4 translate-y-4"></div>
-          </div>
+        <div className="max-w-5xl mx-auto">
           <div className="space-y-12">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
