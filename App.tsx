@@ -806,16 +806,37 @@ const About: React.FC = () => {
               <p className="text-text-secondary leading-relaxed font-light text-xl md:text-2xl">Having transitioned from a technical contributor to product management, I specialize in translating complex algorithmic capabilities into intuitive daily products.</p>
             </div>
             <div className="pt-12 border-t border-slate-100">
-              <div className="space-y-3">
+              <div className="space-y-8">
                 <div className="flex items-center gap-2 text-accent">
-                  <GraduationCap size={16} />
-                  <p className="text-[10px] font-bold uppercase tracking-widest">Academic Base</p>
+                  <GraduationCap size={20} />
+                  <p className="text-xs font-bold uppercase tracking-widest">Education & Certifications</p>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-text-primary font-bold text-lg">MS Analytics</p>
-                  <p className="text-text-secondary text-sm">Kogod School of Business</p>
-                  <div className="inline-block mt-2 px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-bold text-text-secondary">
-                    PMP Certified
+
+                {/* Education */}
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-start justify-between flex-wrap gap-2">
+                      <h4 className="text-text-primary font-bold text-xl">American University, Kogod School of Business</h4>
+                      <span className="text-text-secondary text-sm font-medium">Washington, DC</span>
+                    </div>
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <p className="text-text-secondary text-base italic">Masters of Science in Analytics</p>
+                      <span className="text-text-secondary text-sm font-medium">(2018-2020)</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Certifications */}
+                <div className="space-y-3 pt-6 border-t border-slate-50">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                      <h4 className="text-text-primary font-bold text-base">Project Management Institute</h4>
+                    </div>
+                    <div className="ml-3.5 space-y-1">
+                      <p className="text-text-secondary text-sm">Project Management Professional® <span className="text-text-secondary/60 text-xs">(ID: 11445436)</span></p>
+                      <p className="text-text-secondary/70 text-xs">Valid: 2025-2028</p>
+                    </div>
                   </div>
                 </div>
               </div>
