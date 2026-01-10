@@ -835,7 +835,6 @@ const About: React.FC = () => {
                     </div>
                     <div className="ml-3.5 space-y-1">
                       <p className="text-text-secondary text-sm">Project Management Professional® <span className="text-text-secondary/60 text-xs">(ID: 11445436)</span></p>
-                      <p className="text-text-secondary/70 text-xs">Valid: 2025-2028</p>
                     </div>
                   </div>
                 </div>
