@@ -615,7 +615,7 @@ Instructions:
       const fullPrompt = `${systemPrompt}\n\nRecent conversation:\n${conversationHistory}\n\nUser: ${userInput}\n\nAssistant:`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.5-flash',
         contents: [{
           role: 'user',
           parts: [{
