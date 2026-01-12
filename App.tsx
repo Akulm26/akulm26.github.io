@@ -588,11 +588,18 @@ ${w.stories.map(s => `
 
     try {
       // Check for API key
-      if (!process.env.API_KEY) {
+      const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+      console.log('API Key check:', {
+        hasAPI_KEY: !!process.env.API_KEY,
+        hasGEMINI_API_KEY: !!process.env.GEMINI_API_KEY,
+        finalKey: !!apiKey
+      });
+
+      if (!apiKey) {
         throw new Error('API key not configured. Please set up your Gemini API key.');
       }
 
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey });
       const knowledgeBase = buildKnowledgeBase();
 
       const systemPrompt = `You are a helpful AI assistant for a product manager's portfolio website. You answer questions about the portfolio owner's projects, work experience, skills, and background.
