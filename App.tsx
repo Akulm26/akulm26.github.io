@@ -861,8 +861,8 @@ const Header: React.FC<{ onWorkClick?: () => void }> = ({ onWorkClick }) => {
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
-      <div className={`md:hidden fixed inset-0 z-[100] bg-white transition-transform duration-500 overflow-hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col px-8 pt-24 pb-12 space-y-8 h-full justify-center">
+      <div className={`md:hidden fixed top-0 left-0 right-0 bottom-0 z-[100] bg-white transition-transform duration-500 overflow-hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col px-8 space-y-8 justify-center">
           {navLinks.map((link) => (
             <a key={link.name} href={link.href === 'work-page' ? '#' : link.href} className="text-4xl font-display font-bold text-text-primary" onClick={(e) => handleLinkClick(e, link.href)}>{link.name}</a>
           ))}
