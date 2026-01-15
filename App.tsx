@@ -846,11 +846,11 @@ const Header: React.FC<{ onWorkClick?: () => void }> = ({ onWorkClick }) => {
             Connect
           </a>
         </div>
-        <button className="md:hidden text-text-primary p-2 z-50" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden text-text-primary p-2 z-[110] relative" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
-      <div className={`md:hidden fixed inset-0 z-[60] bg-white transition-transform duration-500 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`md:hidden fixed inset-0 z-[100] bg-white transition-transform duration-500 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col px-8 pt-24 pb-12 space-y-8 h-full justify-center">
           {navLinks.map((link) => (
             <a key={link.name} href={link.href === 'work-page' ? '#' : link.href} className="text-4xl font-display font-bold text-text-primary" onClick={(e) => handleLinkClick(e, link.href)}>{link.name}</a>
@@ -881,7 +881,7 @@ const Hero: React.FC = () => {
 
         </div>
 
-        <div className="order-2 md:order-2 relative z-20 flex flex-col items-center">
+        <div className="order-2 md:order-2 relative flex flex-col items-center">
             <div className="relative group perspective-1000 w-full">
               <div className="absolute -inset-4 bg-gradient-to-tr from-accent/5 to-transparent blur-2xl rounded-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative w-full aspect-[1/1.1] rounded-[60px] overflow-hidden bg-slate-50 border border-slate-100 shadow-2xl transition-all duration-700 hover:rotate-1 hover:scale-[1.01]">
@@ -894,7 +894,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-10 flex items-center justify-center gap-8 relative z-30">
+            <div className="mt-10 flex items-center justify-center gap-8 relative">
               <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
                 <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-accent/30 hover:-translate-y-2 active:scale-95">
                   <Mail size={24} />
