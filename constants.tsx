@@ -84,6 +84,14 @@ export const SECONDARY_PROJECTS: Project[] = [
     description: 'Comprehensive analysis of Udemy\'s marketplace dynamics, identifying search and ranking bias issues, and proposing balanced visibility solutions to improve the content ecosystem.',
     ctaText: 'View Teardown',
   },
+  {
+    id: 'new-project',
+    title: 'New Project',
+    headline: 'Coming Soon',
+    type: 'Project',
+    description: 'Content coming soon.',
+    ctaText: 'View Project',
+  },
 ];
 
 export const CAPABILITIES: Capability[] = [
@@ -331,6 +339,15 @@ export const CASE_STUDIES: Record<string, CaseStudyContent> = {
       'Credentials matter differently by segment - hobbyists value completion, professionals need career-aligned credentials',
       'Enterprise (Udemy Business) is a different game - diversifies revenue and positions platform as workforce development partner'
     ]
+  },
+  'new-project': {
+    id: 'new-project',
+    overview: 'Content coming soon.',
+    problem: 'Content coming soon.',
+    approach: [],
+    solution: 'Content coming soon.',
+    results: [],
+    learnings: []
   }
 };
 
