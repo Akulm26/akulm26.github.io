@@ -457,7 +457,7 @@ The hybrid model became the foundation for our personalization infrastructure. T
 
 **Success Target:** DAU/MAU from **12% → 36%** with statistically significant results, staying within budget constraints.`,
           action: `**1. User Research Defined Product Strategy**
-Conducted 23 user interviews and 2-week diary studies with news app power users.
+Conducted a survey (500 respondents) and 20 in-depth user interviews with news app power users.
 
 **Key Insight:** Users didn't want MORE content — they wanted LESS, but better matched. **67% of sessions** ended with "couldn't find anything interesting."
 
@@ -536,7 +536,7 @@ Beta feedback revealed users didn't trust black-box recommendations.
 **Product Outcomes:**
 ✅ **Became Wareline's flagship AI product:** Client renewed for 2 years, signed 3 additional media clients using this case study
 ✅ **Extensible architecture:** Enabled 12+ months of features (category customization, smart notifications, personalized newsletters) without rebuilds
-✅ **User satisfaction:** 4.6/5 App Store rating, NPS +42, "Finally a news app that feels like it knows me"
+✅ **User satisfaction:** NPS +42, beta feedback: "Finally a news app that feels like it knows me"
 
 **Key Learnings:**
 • **Cold-start solved through product thinking:** Hybrid recommendations delivered value Day 1 while improving over time — no "wait 6 months" dead zone
