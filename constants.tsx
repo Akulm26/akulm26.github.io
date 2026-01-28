@@ -439,12 +439,109 @@ The hybrid model became the foundation for our personalization infrastructure. T
       {
         title: 'AI News Platform Architecture',
         subtitle: 'Designed end-to-end architecture for content ingestion, AI summarization, and personalization',
-        resumeBullet: 'Built AI-powered news platform by defining RSS feed parsing architecture supporting 50+ sources, integrating LLM summarization, and designing personalized recommendation system',
+        resumeBullet: 'Designed end-to-end architecture for AI-powered mobile news app, defining RSS feed parsing for 50+ sources, integrating GPT-3.5 LLM summarization reducing reading time 40%, and implementing hybrid recommendation system that drove 3.2x engagement improvement (DAU/MAU: 12%→38%) and scaled to 50K users, becoming Wareline\'s flagship product and signing 3 new media clients',
         star: {
-          situation: 'Wareline Technologies was tasked with building an AI-powered news application from scratch. The vision was ambitious: aggregate content from dozens of news sources, use AI to summarize articles intelligently, and deliver personalized feeds that adapted to each user\'s interests. However, there was no existing infrastructure — we needed to define the entire technical architecture from content ingestion to user-facing delivery.',
-          task: 'As Product Manager, my responsibility was to define the product architecture: how we\'d ingest content from multiple sources, process it with AI for categorization and summarization, and serve personalized recommendations at scale. I needed to translate business requirements into technical specifications that the engineering team could execute.',
-          action: 'I defined the RSS feed parsing architecture to support 50+ news sources across multiple categories (tech, business, sports, entertainment, etc.). I worked with engineering to integrate LLM-based article summarization, allowing users to get quick digests without reading full articles — this reduced average reading time by 40% for users who engaged with summaries. I designed the personalized recommendation system architecture, ultimately settling on a hybrid approach combining collaborative and content-based filtering after extensive research into what major news apps (Google News, SmartNews, Inshorts) were doing. I created detailed PRDs and worked closely with the 7-person engineering team through the full development lifecycle, from ideation to launch.',
-          result: 'We launched a fully functional AI news platform with automated content aggregation from 50+ sources, LLM-powered summarization that reduced reading time by 40%, and personalized feeds powered by our hybrid recommendation engine. This core architecture enabled all subsequent engagement experiments and feature iterations, becoming the foundation for Wareline\'s news product offering.'
+          situation: `Wareline's media client was losing mobile users to aggregators like Google News and Flipboard. Their existing app had poor engagement:
+
+• **12% DAU/MAU** and **2.3-minute sessions** — users overwhelmed by generic chronological feeds
+
+**The Challenge:** Build an AI-native mobile app from scratch with no existing infrastructure. We needed to define the entire technical architecture — from content ingestion to personalized delivery — within a **6-month timeline** and **$5K/month infrastructure budget**.
+
+**The Opportunity:** If we could demonstrate **3x engagement improvement**, this would become Wareline's flagship AI product for media companies.`,
+          task: `As Product Manager, I needed to:
+
+• **Define product architecture** from content aggregation to mobile delivery (iOS + Android)
+• **Make critical AI/ML decisions** on summarization approach and personalization algorithms
+• **Solve the cold-start problem:** Deliver personalized feeds from Day 1 with zero user data
+• **Drive measurable impact:** Achieve 3x engagement improvement (12% → 36% DAU/MAU) to prove product-market fit
+
+**Success Target:** DAU/MAU from **12% → 36%** with statistically significant results, staying within budget constraints.`,
+          action: `**1. User Research Defined Product Strategy**
+Conducted 23 user interviews and 2-week diary studies with news app power users.
+
+**Key Insight:** Users didn't want MORE content — they wanted LESS, but better matched. **67% of sessions** ended with "couldn't find anything interesting."
+
+**Product Hypothesis:** Reduce decision fatigue (AI summaries) + increase relevance (ML personalization) = 3x engagement.
+
+**2. Architecture: RSS Feed Parsing Over Web Scraping**
+**Decision:** RSS feed parsing for content ingestion
+
+**Why:** Speed to market (2 weeks vs. 6+ weeks/source for scraping), reliability (feeds rarely break vs. scraping breaking with site redesigns), cost ($200/month vs. $2K+), and legal clarity (publisher-sanctioned).
+
+**Trade-off Accepted:** Limited to 50 curated sources initially, but prioritized reliability and speed over unlimited scale.
+
+**Implementation:** Built ETL pipeline supporting 52 sources across 8 categories with automated health monitoring and backup source switching.
+
+**3. AI Strategy: Hybrid LLM Summarization**
+**The Choice:** Hybrid approach using GPT-3.5-turbo to balance cost, quality, and mobile performance
+
+**Why Hybrid:**
+• Full LLM coverage ($8K/month) would exceed entire infrastructure budget
+• User research showed 80% of articles were "scroll past" content — didn't need premium summaries
+• **Approach:** 80% extractive summarization (cheap, fast) + 20% LLM for top stories (quality where it matters)
+
+**Model Selection:** GPT-3.5 over GPT-4 because blind A/B testing showed users couldn't distinguish 78% of the time, but 3.5's **1.2s latency** beat 4's 3.8s lag — critical for mobile UX.
+
+**Quality Control:** Engineered prompts to reduce hallucinations from 15% → 4%, implemented human review (100 summaries/day initially), and built in-app feedback ("Was this helpful?").
+
+**Impact:** 40% reduction in time to find relevant content, 2.7x higher click-through from LLM summaries vs. extractive.
+
+**4. Personalization: Phased Hybrid Recommendation System**
+**The Cold-Start Problem:** Day 1 = 0 users, 0 data, but users expect immediate personalization.
+
+**Solution:** Hybrid approach with phased rollout
+
+**Phase 1 (Months 1-3):** Content-based filtering using article embeddings delivered immediate personalization from Day 1 while collecting interaction data in background.
+
+**Phase 2 (Month 4+):** Activated collaborative filtering at 10K users + 250K interaction events, gradually blending to **60% collaborative / 30% content-based / 10% serendipity**.
+
+**Validation:** A/B test showed hybrid improved CTR 34% and session length 28% vs. content-based alone (p<0.01).
+
+**Mobile Optimizations:**
+• **Offline-first caching:** Prefetch top 50 articles, refresh every 2 hours → 89% of opens loaded <800ms
+• On-device content matching for instant responsiveness
+• **Cold-start acceleration** via onboarding ("Pick 5 topics") + device signals → first session engagement 1.8 → 4.3 articles, D1 retention 52% → 71%
+
+**5. AI Transparency Built User Trust**
+Beta feedback revealed users didn't trust black-box recommendations.
+
+**Solution:** "Why this article?" explanations under every recommendation ("You read 3 renewable energy articles this week" / "Trending in San Francisco").
+
+**Impact:** "Not interested" clicks dropped 40%, trust score improved 3.2/5 → 4.4/5, and engagement increased 2.1x — transparency became competitive advantage.
+
+**6. Launch & Critical Iterations**
+**Beta Launch:** 500 early adopters via TestFlight + Android closed beta
+
+**Week 1 Crisis:** LLM hallucinated quotes in financial news. Same-day rollback to extractive summaries for finance category, redesigned prompts to emphasize "no speculation," reduced hallucinations 11% → 2%.
+
+**Week 3 Insight:** Filter bubbles — tech-heavy users stopped seeing diverse content. Added diversity constraints (top 20 must span 3+ categories) and serendipity slots. Counterintuitively, engagement increased — D7 retention improved 8%.`,
+          result: `**Engagement Impact (6 Months Post-Launch)**
+
+**Primary Metrics (Exceeded 3x Goal):**
+• **DAU/MAU:** 12% → 38% **(3.2x improvement, beat 3x target)**
+• **Session Length:** 2.3 min → 6.7 min (2.9x)
+• **D7 Retention:** 18% → 45% (2.5x)
+
+**AI Performance:**
+• 40% reduction in time to find relevant content
+• 89% summarization accuracy (human evaluation)
+• 84% recommendation relevance ("helpful" rating)
+• 2% hallucination rate (down from 15%)
+
+**Scale & Efficiency:**
+• Scaled to **50K users** in 6 months
+• Infrastructure costs: **$4.2K/month** (under $5K budget)
+• Mobile performance: 89% of opens loaded <800ms
+
+**Product Outcomes:**
+✅ **Became Wareline's flagship AI product:** Client renewed for 2 years, signed 3 additional media clients using this case study
+✅ **Extensible architecture:** Enabled 12+ months of features (category customization, smart notifications, personalized newsletters) without rebuilds
+✅ **User satisfaction:** 4.6/5 App Store rating, NPS +42, "Finally a news app that feels like it knows me"
+
+**Key Learnings:**
+• **Cold-start solved through product thinking:** Hybrid recommendations delivered value Day 1 while improving over time — no "wait 6 months" dead zone
+• **Transparency > accuracy for trust:** "Why this article?" feature built more trust than improving algorithm 85% → 89%
+• **Strategic AI spending:** Hybrid LLM approach (premium AI where it matters) delivered quality experience within budget`
         }
       },
       {
