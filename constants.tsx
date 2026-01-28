@@ -382,10 +382,58 @@ export const WORK_EXPERIENCES: WorkExperience[] = [
         subtitle: 'Led experimentation across 300 users to find the optimal personalization approach',
         resumeBullet: 'Improved content relevance 20% by leading A/B tests of 3 recommendation algorithms (collaborative, content-based, hybrid) across 300 internal users, increasing session duration 15% (4.1→4.7 min) and articles read per session 12%, directly supporting our ad monetization model which required 7+ min sessions for profitability',
         star: {
-          situation: 'At Wareline Technologies, we were building an AI-powered news application designed to deliver highly personalized news feeds. During internal beta testing with 300 users, we faced a critical monetization risk: our ad-supported business model required 7+ minute average session durations to hit revenue targets, but we were tracking at just 4.1 minutes—40% below benchmark. User research revealed the core issue: 62% of users who churned after 2-3 articles cited "content not relevant to my interests" as the primary reason. Despite having a clean interface and strong RSS parsing infrastructure, our feed felt generic. Drop-off analysis showed users were leaving not because of technical issues, but because our one-size-fits-all content ranking wasn\'t surfacing articles they cared about.',
-          task: 'As the Product Manager leading personalization, my objective was to identify and validate which recommendation algorithm would meaningfully improve content relevance—measured by engagement, not just algorithm accuracy scores. Leadership needed confidence that investing in personalization infrastructure would close our 40% session duration gap. I set a success target: +15% increase in average session duration (4.1→4.7min) during internal beta, with statistical significance (p<0.05), which would put us on a trajectory toward our 7min profitability threshold.',
-          action: '1. Hypothesis Formation & Algorithm Selection: I collaborated with data science to analyze reading patterns and identified three distinct personalization approaches worth testing: Collaborative filtering (low data requirements, fast to implement, but needed critical mass of users), Content-based filtering (could work with sparse user data, but risked creating filter bubbles), and Hybrid model (combining both, but required 2x compute resources and more complex ranking logic). Each had trade-offs. I prioritized testing all three because our user base was still growing, and I didn\'t know whether we\'d have enough behavioral data for collaborative filtering to work. 2. Experiment Design: I designed a rigorous A/B test structure with 3 cohorts of 100 users each (sample size validated via power analysis with data science—needed 95 users per cohort for p<0.05 at our expected effect size), 4-week test duration (based on our internal users\' weekly engagement patterns—needed 2+ full weeks per user to reach significance). Primary metric: Session duration (business-critical). Secondary metrics: Articles read per session, feed refresh rate, scroll depth. Composite "Relevance Score": I worked with data science to define this as 0.3(CTR) + 0.3(completion rate) + 0.4(time on article)—weighted toward consumption depth since our goal was meaningful engagement, not just clicks. 3. Instrumentation & Tracking: I worked with engineering to implement Mixpanel + Firebase event tracking (article_opened, session_time, feed_refresh, scroll_depth) and set up automated dashboards showing weekly performance by cohort. I also added a lightweight in-app survey asking "How relevant did today\'s articles feel?" (1-5 scale) to validate quantitative findings with qualitative sentiment. 4. Stakeholder Alignment on Trade-offs: When preliminary results showed the hybrid model leading after week 2, I proactively brought engineering leadership into the decision process. The hybrid approach required 2x compute resources vs. collaborative filtering alone, which would impact our infrastructure budget. I presented a cost-benefit analysis: the projected engagement gains (+15% session duration) would generate an estimated $120K additional annual ad revenue (based on our CPM rates), which easily justified the $35K/year incremental infrastructure cost. Engineering approved the investment.',
-          result: 'The hybrid recommendation model won decisively with statistically significant results (p<0.01): Content relevance: +20% (based on our composite relevance score). Session duration: +15% (4.1→4.7 minutes)—on track toward our 7min profitability goal. Articles read per session: +12%. User satisfaction: 4.2/5 avg rating for "content relevance" (vs. 3.1/5 for collaborative filtering, 3.5/5 for content-based). Post-launch sustainability: I established a monitoring dashboard tracking relevance metrics weekly and set up automated alerts for >5% degradation in any key metric. Over the subsequent 8 weeks in production, gains sustained and even improved slightly (+17% session duration by week 12) as the model accumulated more training data. Broader impact: The hybrid model became the foundation for our personalization infrastructure. The experimentation framework I built was reused for subsequent tests (notification timing, article summarization quality), and the "relevance score" metric became our team\'s North Star for content quality decisions.'
+          situation: `At Wareline Technologies, we were building an AI-powered news application designed to deliver highly personalized news feeds. During internal beta testing with **300 users**, we faced a critical monetization risk:
+
+• Our ad-supported business model required **7+ minute average session durations** to hit revenue targets
+• We were tracking at just **4.1 minutes**—40% below benchmark
+• **62% of churned users** cited "content not relevant to my interests" as the primary reason
+
+Despite having a clean interface and strong RSS parsing infrastructure, our feed felt generic. Drop-off analysis showed users were leaving not because of technical issues, but because our one-size-fits-all content ranking wasn't surfacing articles they cared about.`,
+          task: `As the Product Manager leading personalization, my objective was to identify and validate which recommendation algorithm would meaningfully improve content relevance—measured by engagement, not just algorithm accuracy scores.
+
+Leadership needed confidence that investing in personalization infrastructure would close our **40% session duration gap**.
+
+**Success Target:** +15% increase in average session duration (**4.1→4.7min**) during internal beta, with statistical significance (**p<0.05**), putting us on trajectory toward our 7min profitability threshold.`,
+          action: `**1. Hypothesis Formation & Algorithm Selection**
+I collaborated with data science to analyze reading patterns and identified three personalization approaches:
+• **Collaborative filtering** — Low data requirements, fast to implement, but needed critical mass of users
+• **Content-based filtering** — Could work with sparse user data, but risked creating filter bubbles
+• **Hybrid model** — Combining both, but required 2x compute resources and more complex ranking logic
+
+I prioritized testing all three because our user base was still growing, and I didn't know whether we'd have enough behavioral data for collaborative filtering to work.
+
+**2. Experiment Design**
+I designed a rigorous A/B test structure:
+• **3 cohorts of 100 users each** (sample size validated via power analysis—needed 95 users per cohort for p<0.05)
+• **4-week test duration** (based on internal users' weekly engagement patterns—needed 2+ full weeks to reach significance)
+• **Primary metric:** Session duration (business-critical)
+• **Secondary metrics:** Articles read per session, feed refresh rate, scroll depth
+• **Composite "Relevance Score":** 0.3(CTR) + 0.3(completion rate) + 0.4(time on article)—weighted toward consumption depth since our goal was meaningful engagement, not just clicks
+
+**3. Instrumentation & Tracking**
+• Implemented **Mixpanel + Firebase** event tracking (article_opened, session_time, feed_refresh, scroll_depth)
+• Set up automated dashboards showing weekly performance by cohort
+• Added lightweight in-app survey: "How relevant did today's articles feel?" (1-5 scale) to validate quantitative findings with qualitative sentiment
+
+**4. Stakeholder Alignment on Trade-offs**
+When preliminary results showed the hybrid model leading after week 2, I proactively brought engineering leadership into the decision process. The hybrid approach required **2x compute resources** vs. collaborative filtering alone.
+
+I presented a cost-benefit analysis:
+• Projected engagement gains (+15% session duration) → **$120K additional annual ad revenue** (based on CPM rates)
+• Incremental infrastructure cost: **$35K/year**
+• Engineering approved the investment`,
+          result: `**The hybrid recommendation model won decisively** with statistically significant results (**p<0.01**):
+
+• **Content relevance:** +20% (based on composite relevance score)
+• **Session duration:** +15% (4.1→4.7 minutes)—on track toward 7min profitability goal
+• **Articles read per session:** +12%
+• **User satisfaction:** 4.2/5 avg rating for "content relevance" (vs. 3.1/5 for collaborative, 3.5/5 for content-based)
+
+**Post-launch Sustainability:**
+I established a monitoring dashboard tracking relevance metrics weekly and set up automated alerts for >5% degradation. Over the subsequent 8 weeks in production, gains sustained and improved slightly (**+17% session duration by week 12**) as the model accumulated more training data.
+
+**Broader Impact:**
+The hybrid model became the foundation for our personalization infrastructure. The experimentation framework was reused for subsequent tests (notification timing, article summarization quality), and the "relevance score" metric became our team's North Star for content quality decisions.`
         }
       },
       {

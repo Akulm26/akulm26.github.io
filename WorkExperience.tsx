@@ -30,6 +30,121 @@ const MetricBadge: React.FC<{ metric: WorkMetric }> = ({ metric }) => {
   );
 };
 
+// Format text with support for **bold**, line breaks, and bullet points
+const FormattedText: React.FC<{ text: string; className?: string }> = ({ text, className = '' }) => {
+  const formatLine = (line: string, index: number) => {
+    // Parse **bold** syntax
+    const parts = line.split(/(\*\*[^*]+\*\*)/g);
+    const formatted = parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <span key={i} className="font-semibold text-blue-300">
+            {part.slice(2, -2)}
+          </span>
+        );
+      }
+      return part;
+    });
+
+    // Check if line is a bullet point
+    const isBullet = line.trim().startsWith('•') || line.trim().startsWith('-');
+
+    if (isBullet) {
+      return (
+        <li key={index} className="ml-4 mb-1.5">
+          {formatted}
+        </li>
+      );
+    }
+
+    return (
+      <span key={index}>
+        {formatted}
+        {index < text.split('\n').length - 1 && <br />}
+      </span>
+    );
+  };
+
+  const lines = text.split('\n');
+  const hasBullets = lines.some(line => line.trim().startsWith('•') || line.trim().startsWith('-'));
+
+  if (hasBullets) {
+    // Group content into paragraphs and bullet lists
+    const elements: React.ReactElement[] = [];
+    let currentParagraph: string[] = [];
+    let currentBullets: string[] = [];
+
+    lines.forEach((line, index) => {
+      const isBullet = line.trim().startsWith('•') || line.trim().startsWith('-');
+
+      if (isBullet) {
+        if (currentParagraph.length > 0) {
+          elements.push(
+            <p key={`p-${index}`} className="mb-3">
+              {currentParagraph.map((l, i) => formatLine(l, i))}
+            </p>
+          );
+          currentParagraph = [];
+        }
+        currentBullets.push(line.trim().replace(/^[•-]\s*/, ''));
+      } else if (line.trim() === '') {
+        if (currentBullets.length > 0) {
+          elements.push(
+            <ul key={`ul-${index}`} className="list-disc list-outside ml-5 mb-3 space-y-1.5">
+              {currentBullets.map((bullet, i) => (
+                <li key={i}>{formatLine(bullet, i)}</li>
+              ))}
+            </ul>
+          );
+          currentBullets = [];
+        }
+        if (currentParagraph.length > 0) {
+          elements.push(
+            <p key={`p-${index}`} className="mb-3">
+              {currentParagraph.map((l, i) => formatLine(l, i))}
+            </p>
+          );
+          currentParagraph = [];
+        }
+      } else {
+        if (currentBullets.length > 0) {
+          elements.push(
+            <ul key={`ul-${index}`} className="list-disc list-outside ml-5 mb-3 space-y-1.5">
+              {currentBullets.map((bullet, i) => (
+                <li key={i}>{formatLine(bullet, i)}</li>
+              ))}
+            </ul>
+          );
+          currentBullets = [];
+        }
+        currentParagraph.push(line);
+      }
+    });
+
+    // Handle remaining content
+    if (currentBullets.length > 0) {
+      elements.push(
+        <ul key="ul-final" className="list-disc list-outside ml-5 mb-3 space-y-1.5">
+          {currentBullets.map((bullet, i) => (
+            <li key={i}>{formatLine(bullet, i)}</li>
+          ))}
+        </ul>
+      );
+    }
+    if (currentParagraph.length > 0) {
+      elements.push(
+        <p key="p-final" className="mb-0">
+          {currentParagraph.map((l, i) => formatLine(l, i))}
+        </p>
+      );
+    }
+
+    return <div className={className}>{elements}</div>;
+  }
+
+  return <p className={className}>{lines.map((line, index) => formatLine(line, index))}</p>;
+};
+
 // STAR Details Component
 const STARDetails: React.FC<{ story: WorkStory }> = ({ story }) => {
   return (
@@ -52,7 +167,7 @@ const STARDetails: React.FC<{ story: WorkStory }> = ({ story }) => {
             </div>
             <div className="flex-1">
               <h5 className="text-sm font-bold text-amber-400 mb-2 uppercase tracking-wide">Situation</h5>
-              <p className="text-slate-300 leading-relaxed text-[15px]">{story.star.situation}</p>
+              <FormattedText text={story.star.situation} className="text-slate-300 leading-relaxed text-[15px]" />
             </div>
           </div>
         </div>
@@ -65,7 +180,7 @@ const STARDetails: React.FC<{ story: WorkStory }> = ({ story }) => {
             </div>
             <div className="flex-1">
               <h5 className="text-sm font-bold text-purple-400 mb-2 uppercase tracking-wide">Task</h5>
-              <p className="text-slate-300 leading-relaxed text-[15px]">{story.star.task}</p>
+              <FormattedText text={story.star.task} className="text-slate-300 leading-relaxed text-[15px]" />
             </div>
           </div>
         </div>
@@ -78,7 +193,7 @@ const STARDetails: React.FC<{ story: WorkStory }> = ({ story }) => {
             </div>
             <div className="flex-1">
               <h5 className="text-sm font-bold text-blue-400 mb-2 uppercase tracking-wide">Action</h5>
-              <p className="text-slate-300 leading-relaxed text-[15px]">{story.star.action}</p>
+              <FormattedText text={story.star.action} className="text-slate-300 leading-relaxed text-[15px]" />
             </div>
           </div>
         </div>
@@ -92,7 +207,7 @@ const STARDetails: React.FC<{ story: WorkStory }> = ({ story }) => {
             <div className="flex-1">
               <h5 className="text-sm font-bold text-emerald-400 mb-2 uppercase tracking-wide">Result</h5>
               <div className="bg-gradient-to-br from-emerald-500/10 to-green-500/10 rounded-xl p-4 border border-emerald-500/20">
-                <p className="text-slate-200 leading-relaxed text-[15px] font-medium">{story.star.result}</p>
+                <FormattedText text={story.star.result} className="text-slate-200 leading-relaxed text-[15px] font-medium" />
               </div>
             </div>
           </div>
