@@ -815,12 +815,71 @@ The accuracy improvement mattered, but the **real unlock was trust**. Marketing 
       {
         title: 'Apple TV+ Content Strategy & Audience Insights',
         subtitle: 'Analyzed 30M+ viewing sessions to guide content prioritization and regional launches',
-        resumeBullet: 'Influenced 5 major content launches by analyzing viewer engagement across 20+ markets to identify 10+ top performing TV+ titles and inform content prioritization.',
+        resumeBullet: 'Impact: Built standardized engagement analysis framework across 20+ countries, identifying 10+ high-performing titles and regional breakout hits that informed 5 major Apple TV+ content launch decisions and improved content team\'s market-level planning precision.',
         star: {
-          situation: 'In 2022, Apple TV+ was scaling rapidly across 20+ international markets. Leadership needed sharper, country-specific visibility into which titles were resonating and where engagement was growing fastest. Existing analytics were global and aggregated, making it difficult to tell a market-level performance story that could guide launch priorities and localization decisions.',
-          task: 'My mandate was to build a consistent insight framework that turned raw engagement data into strategic recommendations for Apple TV+ leadership. Targets included identifying high-retention titles and emerging regional hits, delivering quarterly insight reports to guide Top Content launch decisions, and improving content-planning visibility across 20+ markets by approximately 15%.',
-          action: 'I partnered with analytics to analyze 30M+ viewing sessions across 20+ countries. I defined three standard KPIs to benchmark performance: Completion Rate (episodes fully watched ÷ episodes started × 100) showing content stickiness, Repeat Viewership (users who returned to re-watch ÷ total viewers × 100) capturing loyalty, and Audience Growth Rate (new viewers this period ÷ prior period viewers × 100 - 100) reflecting organic traction. Using these metrics, I identified 10+ trending titles with outsized retention or cross-market appeal (Pachinko in Japan, Severance in US, Ted Lasso globally). I consolidated findings into quarterly TV+ Review decks and newsletters, linking data to business impact such as regional audience growth and campaign ROI. I partnered with marketing and content-ops teams to translate insights into prioritized launch and localization plans.',
-          result: 'Guided five Apple TV+ Top Content launches using standardized, data-backed insights. Improved market-level visibility by approximately 18%, enhancing precision in regional targeting. Established a repeatable audience-insight framework adopted for quarterly planning across TV+ markets.'
+          situation: `In 2022, Apple TV+ was scaling rapidly across 20+ international markets with an expanding content slate. The content and marketing teams faced a critical visibility problem: existing analytics were global aggregates that masked country-specific performance patterns.
+**Leadership couldn't easily answer questions like:**
+• "Which shows are resonating in Japan vs. the US?"
+• "Should we invest in marketing Show X globally or focus on specific countries?"
+• "Are we prioritizing shows with high viewership but weak retention?"
+
+**What was missing:** A consistent, repeatable framework to benchmark content performance across countries using engagement quality (not just volume) and surface regional breakout hits that warranted localized investment.`,
+          task: `Design and execute an audience insights framework to:
+
+• **Establish standardized engagement KPIs** that captured content quality across countries (beyond vanity metrics like total views)
+• **Identify high-performing titles** and emerging regional hits from 30M+ viewing sessions across 20+ countries
+• **Deliver quarterly insights** that informed content launch prioritization and regional marketing planning
+
+**Success meant** providing analysis sharp enough that content and marketing teams could confidently answer "where should we invest?" with data backing their decisions.`,
+          action: `**1. Designed Engagement-Quality Framework**
+Partnered with the analytics team to move beyond total views and define three KPIs that measured content stickiness and audience loyalty:
+• **Completion Rate** = Episodes fully watched ÷ Episodes started × 100
+  - Captured whether viewers found content compelling enough to finish
+  - **High completion = strong content-market fit**
+
+• **Repeat Viewership** = Users who returned to rewatch ÷ Total viewers × 100
+  - Measured loyalty and word-of-mouth potential
+  - **High repeat = cultural resonance and fandom potential**
+
+• **Audience Growth Rate** = (New viewers this period ÷ Prior period viewers × 100) - 100
+  - Tracked organic momentum and whether shows were gaining traction
+  - Separated "launch spike" from "sustained growth"
+
+**Why these metrics mattered:** Total views alone were misleading. A show could have high views from heavy marketing but poor completion (viewers bouncing after episode 1). Our framework surfaced whether shows were working in each country, not just being watched.
+
+**2. Analyzed 30M+ Sessions to Surface Country-Level Patterns**
+Analyzed viewing data across 20+ countries, segmenting by title, country, and time period to identify performance patterns and regional breakouts.
+**Key insights surfaced:**
+• **Pachinko:** 87% completion rate in Japan vs. 65% globally—clear signal of cultural resonance warranting Japan-specific marketing investment
+• **Severance:** 42% repeat viewership in US indicating strong fandom and potential for franchise expansion
+• **Ted Lasso:** Consistent 75%+ completion across all countries—validated global appeal and justified universal marketing approach
+
+Identified 10+ titles with either strong cross-country performance or regional breakout potential.
+
+**3. Translated Analysis into Actionable Insights**
+Created quarterly "TV+ Content Review" reports and newsletters consolidating findings for content strategy and marketing teams. Each report included:
+• **Performance rankings by country** with clear KPI benchmarks
+• **Regional breakout highlights** (e.g., "Pachinko over-indexing in Japan—consider localized campaigns")
+• **Content patterns and opportunities** (e.g., "Korean-language content shows cross-cultural appeal")
+
+Presented findings to content planning and regional marketing teams to inform launch prioritization, localization decisions, and budget allocation discussions.
+
+**4. Established Repeatable Process**
+Documented the analysis methodology and KPI definitions so regional teams could run consistent benchmarking quarter-over-quarter. This created shared language across teams—everyone understood what "high engagement" meant using the same metrics.`,
+          result: `**Analytical Impact**
+
+• **Informed 5 major Apple TV+ content launches** with data-backed engagement insights across 20+ countries
+• **Identified 10+ top-performing titles** using standardized engagement KPIs, surfacing regional breakout hits like Pachinko (Japan) and Severance (US)
+• **Analyzed 30M+ viewing sessions** to benchmark performance and provide country-level granularity leadership previously lacked
+
+**Framework Adoption**
+
+• **Established engagement-quality metrics** (completion, repeat viewership, growth rate) that became standard benchmarks for quarterly content reviews
+• **Improved market-level planning precision** by replacing global aggregates with country-specific performance data, enabling targeted launch and marketing decisions
+• **Created repeatable quarterly insight process** adopted by content strategy teams for ongoing performance tracking
+
+**Strategic Contribution**
+Shifted content evaluation from "how many people watched?" to "how well is this working in each country?"—giving teams the visibility to make smarter regional investment and localization decisions. The framework proved that data-driven content insights could operate at Apple's scale while remaining actionable for regional teams.`
         }
       },
       {
