@@ -885,12 +885,60 @@ Shifted content evaluation from "how many people watched?" to "how well is this 
       {
         title: 'Apple Music Search Behavior Analysis',
         subtitle: 'Identified 10% growth potential by analyzing search-to-play conversion gaps',
-        resumeBullet: 'Uncovered a 10% growth potential by analyzing search behavior across 5M+ Apple Music streams, influencing discovery feature roadmap.',
+        resumeBullet: 'Impact: Analyzed 5M+ search queries to uncover 10% content consumption growth potential, identifying high-intent search patterns with low conversion that informed Apple Music\'s discovery feature roadmap and content strategy for emerging genres.',
         star: {
-          situation: 'Apple Music had strong content but user feedback suggested many people struggled to find what they actually wanted, especially in emerging genres. The product team suspected there was a gap between what users were searching for and what they were actually finding and playing, but no one had quantified the opportunity.',
-          task: 'My objective was to analyze search behavior to identify where users were experiencing friction, quantify the growth opportunity from improving content discovery, and provide actionable insights for the discovery feature roadmap.',
-          action: 'I analyzed 5.2 million search queries and noticed that about 620,000 searches (roughly 12%) were high-intent searches that weren\'t converting into plays. For example, the query "Punjabi indie" had 140,000 searches in the quarter but only an 11% click-through rate despite strong user demand. Similar patterns existed for "lofi beats" and "chill instrumental," which had millions of total plays but surprisingly low search-to-play CTRs (9-13%). When I compared search demand with actual listening, I found these mismatches were leading to approximately 830,000 missed plays per quarter. Since total listening volume for those categories was around 8.1 million plays, the recoverable opportunity was roughly 10.2%. I also identified a high-intent cohort of around 120,000 users who repeatedly searched the same artist within 48 hours. When these users were shown relevant playlists, their conversion rate jumped from 13% to 32% — a 2.4x improvement.',
-          result: 'Uncovered 10% growth potential in content consumption by identifying search-to-play conversion gaps. Insights directly informed content strategy for mid-tier and emerging artists, leading to experiments in playlist placement and improved query mapping. The analysis shaped the discovery feature roadmap and provided a framework for ongoing search optimization.'
+          situation: `Apple Music had a strong music catalog, but user feedback suggested people were struggling to find what they actually wanted—especially for emerging genres and lesser-known artists. Users were searching, but not discovering.
+The product team suspected there was a disconnect between what users searched for and what they actually ended up playing, but no one had measured how big the problem was or identified where specifically the discovery experience was breaking down.`,
+          task: `Analyze search behavior to:
+
+• **Identify where users hit friction** in music discovery (searching but not finding)
+• **Quantify how much listening growth** we were leaving on the table
+• **Provide specific, actionable insights** to help prioritize discovery improvements and content investments
+
+**Success meant** finding patterns clear enough that product and content teams could confidently decide what to build and where to invest.`,
+          action: `**1. Found Where Search Was Failing Users**
+Analyzed 5.2 million search queries over one quarter, tracking what happened after each search: Did users click results? Did they actually play something? This wasn't just about counting searches—it was about understanding search intent vs. outcome.
+• **Discovered that approximately 620,000 searches (~12% of total volume) showed clear intent but didn't result in any plays.** These weren't casual browsing—users knew what they wanted but couldn't find it.
+
+**2. Identified Which Music Categories Had the Biggest Gaps**
+Dug deeper to understand what users were searching for but not finding:
+**Emerging genres with demand but poor discovery:**
+• **"Punjabi indie":** 140,000 searches in the quarter but only 11% of searchers clicked on results—despite Apple Music having this content
+• **"Lofi beats" and "chill instrumental":** Categories with millions of plays overall, but when users specifically searched for them, only 9-13% found and played something
+
+The platform had the music. Search just wasn't connecting people to it effectively.
+**Calculated what we were missing:** By comparing search patterns with listening behavior, I found these gaps represented about 830,000 missed plays per quarter. Since these categories had roughly 8 million total plays, fixing the discovery problem could unlock approximately 10% more listening in these areas.
+
+**3. Spotted a High-Value User Pattern**
+Found something particularly interesting: around 120,000 users searched for the same artist multiple times within 48 hours—a clear sign they wanted something specific but hadn't found it yet.
+Looking at what eventually worked for these users, I noticed that when they finally discovered relevant curated playlists (through other means like browsing or recommendations), they engaged at a 32% rate compared to just 13% for casual searchers. **This 2.4x difference showed that getting these motivated users to the right playlists faster could dramatically improve their experience.**
+
+**4. Turned Findings into Clear Recommendations**
+Packaged the analysis into specific opportunities for the product and content teams:
+**For product/discovery team:**
+• Improve how search understands emerging genre terms like "Punjabi indie" and "lofi beats"
+• Test showing curated playlists to users who search repeatedly for the same artist
+• Adjust how lesser-known artists appear in search results for niche genres
+
+**For content strategy team:**
+• Prioritize playlist creation in high-search, low-conversion categories
+• Focus curation efforts on emerging genres where demand exists but discovery is weak
+
+Presented findings with specific numbers—how many users were affected, how much listening we could unlock, and which categories to prioritize first.`,
+          result: `**Growth Opportunity Identified**
+
+• **Quantified 10% growth potential** in content consumption by finding where search intent wasn't converting to plays
+• **Located 620K high-intent searches** (~12% of volume) that weren't leading to music discovery, with clear patterns by genre
+• **Identified 120K highly motivated users** who showed 2.4x higher engagement potential when shown the right playlists
+
+**Strategic Impact**
+
+• **Shaped discovery roadmap priorities:** Analysis gave the product team data-backed direction on which discovery improvements would have the biggest impact—better search understanding for emerging genres, personalized playlist placement for repeat searchers, and improved surfacing of mid-tier artists
+• **Informed content investment decisions:** Content team used findings to prioritize playlist curation for emerging categories (Punjabi indie, lofi, chill instrumental) where user demand was proven but underserved
+• **Established ongoing measurement approach:** Created a framework for tracking search-to-play conversion as a key health metric for discovery effectiveness
+
+**Why It Mattered**
+The analysis moved the conversation from "we should improve search" to "here's exactly where search is failing, for how many users, and how much listening we're missing out on." This specificity helped teams prioritize confidently—they knew which problems to solve first and could estimate the potential impact of fixing them.`
         }
       }
     ]
