@@ -957,14 +957,107 @@ The analysis moved the conversation from "we should improve search" to "here's e
     ],
     stories: [
       {
-        title: 'Insider Threat Detection System (MVP)',
-        subtitle: 'Built anomaly detection MVP using machine learning on behavioral patterns',
-        resumeBullet: 'Delivered a scalable outlier detection solution using 5 behavioral and technical features, resulting in companywide adoption and optimized insider threat detection.',
+        title: 'Insider Threat Detection System',
+        subtitle: 'Built anomaly detection capability using machine learning on behavioral patterns',
+        resumeBullet: 'Impact: Designed and validated ML-based insider threat detection approach using behavioral and technical feature analysis on 20GB of system logs, demonstrating improved anomaly detection over rule-based systems—leading to company adoption and integration into Dfuse\'s security product offering.',
         star: {
-          situation: 'At Dfuse Tech, internal security teams relied on rigid rule-based alerts for insider threat monitoring. The system raised too many false positives and missed nuanced behavioral deviations, leading to alert fatigue and delayed responses. The data science team was asked to explore a machine learning-driven approach to make detection adaptive and behavior-aware.',
-          task: 'As a Junior Data Scientist, my responsibility was to research anomaly-detection methods that could learn from both behavioral and technical user patterns, build a working proof-of-concept (MVP) demonstrating improved precision versus rule-based detection, and collaborate with my manager to hand over a validated model for integration.',
-          action: 'I conducted exploratory data analysis on the CERT r3.2 dataset (~20 GB, 1,000 users, 500 days of logs) to understand behavior patterns linked to insider risk — login frequency, device usage, file activity, and privilege escalation. I extracted five key attributes (three behavioral, two technical) that best captured abnormal user behavior. I implemented an Isolation Forest model in Python using scikit-learn to detect anomalies without requiring labeled malicious data. I tuned parameters (contamination = 0.05, estimators = 100) for optimal recall-precision balance and validated on synthetic attack scenarios. I documented the model pipeline, data transformations, and thresholds for production engineers, and worked with the senior data scientist during integration testing.',
-          result: 'The MVP formed the core of Dfuse\'s insider-threat detection system, later adopted company-wide. Delivered approximately 30% false-positive reduction and faster analyst response times once integrated. The project became a reference framework for anomaly detection modules across Dfuse\'s security analytics portfolio.'
+          situation: `Dfuse Tech's security product relied on rule-based alerts for insider threat monitoring. Client security teams reported that rigid, signature-based rules generated excessive false positives, creating alert fatigue and delaying response to actual threats. The system couldn't adapt to nuanced behavioral patterns that might indicate insider risk.
+**The fundamental problem:** Traditional cybersecurity tools struggle to detect insider threats because malicious indicators are often spread across multiple datasets, hidden among thousands of normal activities, or separated by weeks of inactivity. Rule-based systems either flag too many normal behaviors or miss subtle anomalies entirely.
+**A critical product constraint:** Different organizations have different risk tolerances—financial institutions might flag any unusual access immediately, while creative agencies might tolerate more behavioral variation. A one-size-fits-all threshold approach wouldn't work across diverse client needs.
+The data science team was tasked with exploring whether machine learning could provide adaptive, behavior-aware threat detection that clients could calibrate to their security posture.`,
+          task: `As a Junior Data Scientist, my responsibility was to:
+
+• **Research unsupervised anomaly detection methods** that could learn from behavioral and technical patterns without requiring labeled attack data
+• **Build a working capability** demonstrating improved detection versus rule-based approaches
+• **Design a flexible scoring system** that let organizations tune sensitivity to their risk tolerance
+• **Validate the approach rigorously** enough to inform a production decision
+
+**Success meant** proving that ML-based detection could identify insider threats across different activity types while giving clients control over what constituted an "alert-worthy" anomaly.`,
+          action: `**1. Analyzed System Logs to Understand Insider Behavior**
+Worked with the CERT r3.2 dataset—a 20GB synthetic dataset simulating 1,000 enterprise users across 500 days with embedded insider threat scenarios. This industry-standard dataset includes realistic system logs (logons, device usage, file transfers) plus synthetic malicious activities for validation.
+Conducted exploratory analysis across five log types to understand what patterns correlate with insider risk:
+• **Logon/Logoff activity:** After-hours logins, unusual login timing patterns
+• **Device usage:** Removable drive connections/disconnections, frequency patterns
+• **File transfers:** Volume and timing of files copied to removable media
+• **User-PC relationships:** Which users accessed which machines (legitimate vs. unusual)
+• **Psychometric scores:** Big 5 personality traits (OCEAN model) as risk indicators
+
+The goal was identifying features that would flag genuine insider threats (data exfiltration, unauthorized access) while ignoring harmless variations in normal work patterns.
+
+**2. Engineered Behavioral and Technical Features**
+Extracted meaningful features from raw log data, creating separate feature sets for different activity types:
+**Logon/Logoff features (behavioral):**
+• Minimum, maximum, mode, and average login/logout times
+• Captured after-hours access patterns and timing anomalies
+
+**Device/File Transfer features (technical + behavioral):**
+• Mode and maximum file transfers per user
+• Device connection/disconnection timing patterns
+• Combined to identify unusual data exfiltration behavior
+
+**User-PC relationship features (technical):**
+• Number of unique PCs accessed per user
+• Frequency of access to non-assigned machines
+• Users logging into multiple machines (threshold: >40 interactions flagged for review)
+
+**Psychometric features (behavioral):**
+• OCEAN personality scores as baseline risk indicators
+• Higher risk profiles: low Conscientiousness, high Neuroticism
+
+**Why this multi-signal approach mattered:** Insider threats rarely show up in just one activity type. Someone exfiltrating data might have normal login times but unusual file transfer volumes. Combining signals across activity types catches sophisticated threats that single-metric systems miss.
+
+**3. Built ML Approach with Configurable Anomaly Scoring**
+Chose **Isolation Forest** as the core algorithm because:
+• **Unsupervised learning:** Doesn't require labeled examples of malicious behavior (insider attacks are rare and expensive to label)
+• **Learns "normal" patterns:** Identifies deviations without needing to know what attacks look like
+• **Produces anomaly scores:** Ranks users by suspiciousness rather than binary "threat/not threat"
+
+Implemented flexible, multi-model architecture:
+• Trained separate Isolation Forest models for each activity type (logon, device, psychometric, user-PC relationships)
+• Each model generated anomaly scores for users based on that activity dimension
+• Combined models to create comprehensive threat rankings
+
+**Critical design decision—configurable thresholds:**
+Rather than hardcoding what counts as "anomalous," I made thresholds adjustable so different organizations could calibrate sensitivity:
+• The model assigns each user an anomaly score (negative scores indicate outliers)
+• Organizations set their own thresholds for investigation (e.g., "flag all users with score < -0.05")
+• Activity-specific thresholds allow nuanced policies (e.g., strict file transfer monitoring, lenient login timing)
+
+**Why configurability mattered for the product:** A financial services client might investigate any user with unusual PC access patterns. A research lab might only care about massive file transfers. Static thresholds force one approach; configurable scoring lets clients match detection to their actual risk tolerance and operational culture.
+
+**4. Validated Across Multiple Activity Dimensions**
+Tested the approach using CERT's embedded threat scenarios—synthetic cases where researchers simulated data theft, unauthorized access, and policy violations.
+**Validation approach:**
+• Ran separate models for logon/logoff, device/file transfers, psychometric indicators, and user-PC relationships
+• Generated ranked lists of suspicious users for each activity type
+• Created combined threat rankings synthesizing all signals
+• Visualized anomaly score distributions across different threshold configurations
+
+**Key findings:**
+• Successfully identified users with anomalous patterns across activity types
+• Different activity models flagged different threat profiles (some users had suspicious login patterns, others had file transfer anomalies)
+• Combined scoring caught users with multi-dimensional suspicious behavior
+• Configurable thresholds allowed testing different sensitivity levels without retraining
+
+Documented the complete methodology: feature engineering process, model architecture, threshold configuration options, and interpretation guidelines for security analysts.`,
+          result: `**Validation Success**
+
+• **Proved ML viability** for adaptive insider threat detection using unsupervised learning on behavioral patterns
+• **Demonstrated multi-dimensional detection** across logon activity, device usage, file transfers, and user-PC relationships
+• **Validated configurable threshold approach** allowing organizations to tune sensitivity without model retraining
+• **Created ranking system** that prioritized investigation of highest-risk users rather than binary alerts
+
+**Business Impact**
+
+• **Adopted by senior management** for production development after reviewing validation results
+• **Integrated into Dfuse's security product offering** as a capability sold to clients, with configurable anomaly scoring becoming a key product differentiator
+• **Enabled client customization** where different organizations could set thresholds matching their risk tolerance (high-security environments vs. lower-risk contexts)
+• **Became foundation for Dfuse's ML-based threat detection approach,** addressing the core problem of rule-based systems that either overwhelm analysts with false positives or miss subtle threats
+
+**Technical Contribution**
+Demonstrated that unsupervised learning (Isolation Forest) with multi-dimensional feature analysis and configurable scoring could effectively detect insider threats without requiring labeled attack data—a critical advantage since real insider attacks are rare and expensive to label.
+The multi-model approach showed that **different insider threat types have different behavioral signatures:** data exfiltration shows up in file transfers, reconnaissance appears in unusual PC access patterns, and after-hours activity signals in login timing. Combining signals across dimensions caught sophisticated threats that single-metric systems would miss.
+The configurable threshold design solved a **fundamental product challenge:** security needs vary dramatically across industries and organizational cultures. Rather than forcing all clients to accept the same sensitivity level, the system empowered security teams to calibrate detection to their specific context.`
         }
       },
       {
