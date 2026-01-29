@@ -962,7 +962,9 @@ The analysis moved the conversation from "we should improve search" to "here's e
         resumeBullet: 'Impact: Designed and validated ML-based insider threat detection approach using behavioral and technical feature analysis on 20GB of system logs, demonstrating improved anomaly detection over rule-based systems—leading to company adoption and integration into Dfuse\'s security product offering.',
         star: {
           situation: `Dfuse Tech's security product relied on rule-based alerts for insider threat monitoring. Client security teams reported that rigid, signature-based rules generated excessive false positives, creating alert fatigue and delaying response to actual threats. The system couldn't adapt to nuanced behavioral patterns that might indicate insider risk.
+
 **The fundamental problem:** Traditional cybersecurity tools struggle to detect insider threats because malicious indicators are often spread across multiple datasets, hidden among thousands of normal activities, or separated by weeks of inactivity. Rule-based systems either flag too many normal behaviors or miss subtle anomalies entirely.
+
 **A critical product constraint:** Different organizations have different risk tolerances—financial institutions might flag any unusual access immediately, while creative agencies might tolerate more behavioral variation. A one-size-fits-all threshold approach wouldn't work across diverse client needs.
 The data science team was tasked with exploring whether machine learning could provide adaptive, behavior-aware threat detection that clients could calibrate to their security posture.`,
           task: `As a Junior Data Scientist, my responsibility was to:
