@@ -754,12 +754,62 @@ The business was ready to expand into Singapore, Canada, Cyprus, Poland, and Fin
       {
         title: 'KPI Forecasting Redesign Using DeepAR',
         subtitle: 'Built Apple\'s first country-level forecasting system using neural time-series modeling',
-        resumeBullet: 'Led KPI forecasting redesign (eligibility, redemption, signups) for Apple TV+, Music and Arcade, reducing error by 20% and enabling country-level marketing planning across 15+ regions.',
+        resumeBullet: 'Impact: Built Apple\'s first country-level forecasting system for TV+, Music, and Arcade, improving prediction accuracy by 20% across 15 countries—replacing broad regional estimates with precise, country-specific forecasts that enabled localized marketing planning.',
         star: {
-          situation: 'At Apple Media Products, leadership relied on high-level regional forecasts for key performance indicators — eligibility, redemption, and organic signups — to plan marketing budgets and promotional campaigns. However, those forecasts were aggregated at the regional level and didn\'t reflect country-specific patterns or product-level seasonality (student plan spikes in September, local holidays in India or Japan). As a result, actual performance often deviated by 25-30% from forecasts, creating planning inefficiencies and reduced visibility for local teams.',
-          task: 'As the Business Analyst for this project, my mandate was to build Apple\'s first country- and KPI-level forecasting model, leverage DeepAR (a neural time-series forecasting method) to capture non-linear seasonal behavior and campaign effects, and improve KPI tracking accuracy by at least 20%.',
-          action: 'I gathered two years of historical KPI data across 15 countries and three product lines, segmenting inputs by KPI, campaign type, and product (TV+, Music, Arcade). I established baselines for forecast error (MAPE ~25%) to quantify improvement. I implemented DeepAR, Amazon\'s probabilistic forecasting algorithm, to model both short-term seasonality and cross-country dependencies. The model learned from all time-series simultaneously, improving generalization for smaller countries with sparse data. I automated model training and forecast generation through Python (MXNet + GluonTS stack). I ran backtesting across 6 quarters and compared forecast variance to prior regional-level aggregates. I collaborated with marketing and finance to validate forecasts against actual campaign data, documented the methodology, and rolled out to 4 regional analytics pods.',
-          result: 'Built Apple\'s first DeepAR-based country- and KPI-level forecasting system, covering 3 KPIs × 15 countries × 3 product lines. Reduced forecast variance by 20%, improving KPI tracking accuracy for eligibility, redemption, and organic signups. Enhanced local planning precision for regional marketing and partnership teams. The model was adopted as the standard forecasting pipeline within Apple Media Products\' global analytics framework.'
+          situation: `Apple Media Products planned marketing budgets and campaigns using regional forecasts (like "Asia-Pacific" or "Europe") for three key metrics: how many users qualify for offers, how many redeem them, and how many sign up organically.
+**The problem was simple: Averages hide reality.** A regional forecast might predict 100K signups for Asia-Pacific, but that number masked huge differences—student plan signups surged in September in the US but not in Japan; Diwali drove redemptions in India that didn't happen in Singapore; local partnership campaigns created spikes the model couldn't see.
+Marketing teams often missed their targets by 25-30% because forecasts were too broad. They'd over-invest in some countries, under-invest in others, and had no visibility into what was actually driving performance locally.
+**Why didn't country-level forecasts exist before? Data quality problems.** Each country reported metrics differently, smaller markets had limited history, and data lived in fragmented systems across three product lines. Previous attempts to build granular forecasts failed because the foundation wasn't solid.`,
+          task: `Build Apple's first country-specific forecasting system to:
+
+• **Improve forecast accuracy** by at least 20% (from ~25% average error)
+• **Give marketing teams country-level predictions** instead of regional averages
+• **Handle countries with limited historical data** while capturing local patterns like holidays and student seasons
+
+**Success meant** proving the forecasts were more accurate through testing, getting marketing and finance teams to trust them, and having regional teams actually use them for planning.`,
+          action: `**1. Fixed the Data Foundation First**
+• Spent three weeks cleaning two years of historical data across 15 countries and three products. Worked with regional data teams to standardize how each country reported metrics—this wasn't glamorous work, but without it, any model would be garbage-in, garbage-out.
+• Calculated how wrong existing regional forecasts were (about 25% error on average) to create a clear "before" benchmark.
+
+**2. Chose the Right Forecasting Approach**
+Tested three options:
+• **Traditional statistical models:** Couldn't handle complex patterns like September student spikes or Diwali effects
+• **Standard forecasting tools:** Struggled when countries had different trends and limited ability to learn from each other
+• **DeepAR (neural forecasting):** Could learn patterns across all countries simultaneously
+
+**Why DeepAR won:** Imagine teaching someone about seasons. If you only showed them summer in Singapore (hot year-round), they'd never learn what winter means. But if you showed them data from 15 countries, they'd learn "winter = December-February in northern markets, June-August in southern ones."
+DeepAR works the same way—it learns from all 135 time-series at once (3 metrics × 15 countries × 3 products). So even if Singapore only had 8 months of clean data, the model could apply seasonality patterns it learned from the US or UK.
+**The other critical feature:** Instead of saying "50,000 signups will happen," DeepAR said "50,000 signups, give or take 8,000." Marketing teams loved this because they could plan for the range, not bet everything on a single number.
+
+**3. Built and Validated the System**
+Created an automated system in Python that:
+• Retrained the model weekly with latest campaign data (marketing calendars changed frequently)
+• Generated forecasts for all countries and products
+• Produced confidence ranges, not just single predictions
+
+Tested it by running the model on 6 quarters of historical data—basically asking "if we'd used this model in the past, how accurate would it have been?" Compared results to actual performance and old regional forecasts.
+
+**4. Got Stakeholders on Board**
+Marketing VPs were skeptical. They'd seen fancy models fail before and trusted their intuition about their markets. I addressed this by:
+• **Showing the model's predictions** for periods they remembered well (like the iPhone bundle promotion in Q3 2021) and proving it would've been more accurate
+• **Explaining that the confidence ranges showed uncertainty**—they appreciated knowing how confident we were, not just getting a number
+• **Being honest about limitations** (new product launches, sudden market changes) so they knew when to question the forecasts
+
+Created documentation explaining how the model worked in plain language and trained 4 regional analytics teams to use it.`,
+          result: `**Forecast Performance**
+
+• **Improved accuracy by 20%:** Average prediction error dropped from 25% to 20% across all metrics and countries
+• **Covered 135 time-series:** 3 metrics × 15 countries × 3 products, all updated weekly
+• **Delivered predictions with confidence ranges** so teams could plan for best/worst case scenarios
+
+**Business Impact**
+
+• **Enabled country-specific marketing planning:** Teams replaced "spend X on Asia-Pacific" with "spend X in India for Diwali, Y in Japan for student season"—targeting budget where it would actually perform
+• **Improved planning confidence:** Finance used the confidence ranges to set realistic buffers instead of blanket 30% cushions
+• **Became the standard forecasting system** across Apple Media Products after validation by leadership
+
+**What Made It Work**
+The accuracy improvement mattered, but the **real unlock was trust**. Marketing teams actually changed how they planned campaigns because they believed the forecasts. That only happened because I prioritized explaining the model clearly, being transparent about uncertainty, and proving it worked on their real past decisions.`
         }
       },
       {
