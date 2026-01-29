@@ -969,13 +969,72 @@ The analysis moved the conversation from "we should improve search" to "here's e
       },
       {
         title: 'Aircraft Engine Predictive Maintenance',
-        subtitle: 'Achieved 93% failure classification accuracy using sensor data from 100 turbofan engines',
-        resumeBullet: 'Implemented supervised learning on sensor data from 100 turbofan engines, achieving 93% failure classification accuracy and a 35.7% boost in RUL prediction.',
+        subtitle: 'Achieved 93% failure classification accuracy using sensor data from turbofan engines',
+        resumeBullet: 'Impact: Built predictive maintenance capability using NASA turbofan engine dataset, achieving 93% failure classification accuracy and 35.7% improvement in remaining useful life prediction—validating ML approach that Dfuse later adopted for aerospace predictive maintenance offerings.',
         star: {
-          situation: 'An aerospace client needed to predict turbofan engine failures before they happened, shifting from reactive to proactive maintenance. Maintenance teams were either running engines until warning lights triggered — risking costly downtime — or replacing them too early, wasting useful life. They needed two things: a risk classifier to flag engines nearing end-of-life, and a Remaining Useful Life (RUL) model to forecast how many cycles were left before failure.',
-          task: 'As a Junior Data Scientist, I was responsible for building a predictive maintenance MVP using NASA\'s CMAPSS FD001 dataset (100 engines with sensor readings). I needed to create both a classification model for failure risk and a regression model for RUL prediction.',
-          action: 'I started with label engineering, calculating RUL for each engine as (max_cycle - current_cycle). I discovered that early in an engine\'s life, sensor readings were flat with no degradation signal, so RUL values like 300+ just added noise. To solve this, I capped RUL at 125 cycles, focusing training on the meaningful degradation zone — this single change improved RMSE from 31.95 to 21.9 (approximately 31% error reduction). For classification, I trained and tuned Random Forest and XGBoost classifiers using 16 key sensor features to flag engines within 50 cycles of failure. For regression, I built an SVR model on the clipped RUL target using MinMax scaling, 2nd-order polynomial sensor interactions, and 37 top features selected to avoid overfitting.',
-          result: 'Delivered an end-to-end predictive maintenance MVP. The XGBoost classifier achieved 93% accuracy (95.5% on validation) in predicting engines within 50 cycles of failure. The SVR model achieved RMSE of 20.54 and R² of 0.756, a 35.7% reduction in error compared to baseline. This enabled the client\'s maintenance team to plan interventions in advance, cut unplanned downtime, and optimize part replacement cycles — moving from guesswork to data-driven scheduling.'
+          situation: `Aerospace maintenance teams face a costly dilemma: run engines until failure (risking unplanned downtime and safety issues) or replace parts prematurely (wasting remaining useful life and increasing costs). Traditional maintenance relies on fixed schedules or reactive warning indicators, neither of which optimizes for actual engine health.
+**The opportunity:** Turbofan engines generate continuous sensor data (temperature, pressure, vibration) throughout their lifecycle. This data contains degradation signals that could predict failures before they happen—if analyzed correctly.
+Dfuse Tech's data science team was exploring predictive maintenance as a capability to offer aerospace clients. The challenge was proving that machine learning could reliably predict both when engines would fail (classification) and how much useful life remained (regression) using sensor patterns alone.`,
+          task: `As a Junior Data Scientist, my responsibility was to:
+
+• **Build a dual-model predictive maintenance capability:** failure risk classification and remaining useful life (RUL) prediction
+• **Use NASA's CMAPSS FD001 dataset** (100 turbofan engines with multivariate sensor readings across operational cycles)
+• **Validate that ML could achieve sufficient accuracy** to support maintenance decision-making
+• **Document the approach** for potential productionization
+
+**Success meant** proving the technical feasibility: could sensor data predict failures accurately enough to justify shifting from scheduled to condition-based maintenance?`,
+          action: `**1. Understood the Data and Business Problem**
+Analyzed the NASA CMAPSS dataset containing 100 engines running until failure, each with 21 sensor measurements (temperatures, pressures, fan speeds) recorded at every operational cycle. The dataset simulates realistic engine degradation under different operating conditions.
+**The dual prediction challenge:**
+• **Classification:** Flag engines entering high-risk zone (within 50 cycles of failure) so maintenance can be scheduled
+• **Regression:** Predict exact remaining useful life (RUL) in cycles so teams know when to intervene, not just *if*
+
+**2. Engineered the RUL Target Through Experimentation**
+Calculated RUL for each observation as (max_cycle - current_cycle) to create the regression target. But initial model performance was poor (RMSE 31.95).
+**Discovered the problem:** Early in an engine's life, all sensor readings are flat—no degradation signal exists yet. But these early observations had RUL values like 300+ cycles, which the model tried to learn from. This added pure noise since there was nothing to learn from non-degrading engines.
+**The solution—RUL clipping:** Capped RUL at 125 cycles, focusing training only on the meaningful degradation zone where sensor patterns actually predict failure. Observations earlier than 125 cycles from failure were labeled as "healthy" (RUL = 125).
+**Why this mattered:** Maintenance teams don't need precise RUL predictions 300 cycles out—they need accurate warnings as failure approaches. Clipping focused the model on the actionable prediction window.
+**Impact:** This single insight improved RMSE from 31.95 to 21.9—approximately 31% error reduction—by aligning the model with the actual business use case.
+
+**3. Built Classification Model for Failure Risk**
+Created binary labels: engines within 50 cycles of failure = "high risk," beyond 50 cycles = "healthy." This threshold represents the realistic planning window for scheduling maintenance interventions.
+Trained and compared two ensemble methods:
+• **Random Forest:** Good baseline, handles non-linear sensor relationships
+• **XGBoost:** Gradient boosting for better performance on complex patterns
+
+Used 16 key sensor features showing the strongest degradation signals. Tuned hyperparameters through cross-validation to optimize precision-recall balance—false negatives (missing actual failures) are more costly than false positives (unnecessary inspections).
+
+**4. Built Regression Model for RUL Prediction**
+Designed SVR (Support Vector Regression) model on the clipped RUL target:
+**Feature engineering:**
+• Applied MinMax scaling to normalize sensor ranges
+• Created 2nd-order polynomial interactions to capture non-linear degradation patterns (temperature × pressure relationships, etc.)
+• Selected top 37 features through iterative testing to balance predictive power against overfitting
+
+**Why SVR:** Support Vector Regression handles high-dimensional sensor data well and is robust to noise—critical since real-world sensor readings contain measurement errors and environmental variations.
+Validated using RMSE (prediction accuracy in cycles) and R² (how much variance the model explains).
+
+**5. Validated Approach Rigorously**
+Tested both models on held-out engines never seen during training—simulating real-world deployment where the model must predict on new engines, not just training examples.
+Compared performance against baseline approaches (mean RUL prediction, simple linear regression) to quantify improvement.`,
+          result: `**Model Performance**
+**Classification (Failure Risk Detection):**
+• **XGBoost achieved 93% accuracy** (95.5% on validation set) in identifying engines within 50 cycles of failure
+• **Successfully flagged high-risk engines** with sufficient lead time for maintenance scheduling
+
+**Regression (RUL Prediction):**
+• **RMSE:** 20.54 cycles (average prediction error)
+• **R²:** 0.756 (model explains 75.6% of RUL variance)
+• **35.7% error reduction** compared to baseline prediction methods
+
+**Technical Contribution**
+The RUL clipping insight demonstrated that aligning ML targets with business use cases matters as much as algorithm selection. By focusing the model on the actionable prediction window (final 125 cycles), accuracy improved dramatically—teaching me that effective ML for product applications requires understanding when predictions need to be accurate, not just *that* they're accurate.
+The dual-model approach showed that predictive maintenance needs both classification (is this engine high-risk?) and regression (exactly when will it fail?)—different stakeholders use different predictions. Operations teams want yes/no risk flags; maintenance planners need precise timing for parts procurement.
+
+**Business Validation**
+**Validated ML feasibility for predictive maintenance:** Demonstrated that sensor data alone could predict turbofan failures with sufficient accuracy to support condition-based maintenance—replacing fixed schedules or reactive approaches.
+**Adopted by Dfuse:** The capability was later integrated into Dfuse's predictive maintenance offerings for aerospace clients, proving that the research approach translated to commercial value.
+**Key insight for stakeholders:** The work showed that shifting from "replace every X cycles" to "replace when sensors indicate degradation" could optimize maintenance costs while maintaining safety—engines aren't replaced too early (wasting useful life) or too late (risking failure).`
         }
       },
       {
