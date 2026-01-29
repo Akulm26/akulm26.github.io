@@ -1134,13 +1134,101 @@ The dual-model approach showed that predictive maintenance needs both classifica
       },
       {
         title: 'Customer Segmentation & Marketing Optimization',
-        subtitle: 'Identified 3 high-value segments contributing to 40% of deposits',
-        resumeBullet: 'Built customer segmentation model using PySpark to analyze 25K+ customer profiles, identifying 3 high-value segments that contributed to 40% of deposits and enabling 12-15% reduction in marketing spend.',
+        subtitle: 'Analyzed customer conversion patterns to identify high-value segments',
+        resumeBullet: 'Impact: Built comprehensive customer segmentation analysis using PySpark and Tableau across 11K+ customer profiles, identifying high-conversion customer segments and behavioral patterns that could inform targeted marketing strategies—demonstrating data-driven approach to optimizing marketing spend by 12-15%.',
         star: {
-          situation: 'A mid-sized U.S. bank was spending heavily on marketing campaigns to get customers to open term deposits, but their conversion rates were poor. The problem? They were treating all customers the same — blasting the same message to everyone — without understanding which types of customers were actually likely to respond. Leadership had no visibility into who their best prospects were.',
-          task: 'My job was to analyze their customer data and figure out: Who are the customers most likely to say yes? And how can marketing spend less while getting the same (or better) results?',
-          action: 'I analyzed around 25,000 customer records combining financial data (account balance, loans) with demographic info (age, education, job type) and past campaign history. The first insight was surprising: traditional factors like education or marital status barely mattered. What actually predicted success was behavior — specifically, how long the sales call lasted and whether the customer had responded positively to a previous campaign. Using this, I built customer segments: High-value segment (customers with healthy balances, no outstanding loans, and prior positive engagement — 18% more likely to convert) and Low-value segment (customers with zero or negative balances who had ignored previous campaigns — less than 10% chance of converting). I also built a predictive model that could score any customer\'s likelihood to convert, so marketing could prioritize their outreach.',
-          result: 'The bank now had a clear picture of who to target and who to skip. They identified 3 high-value segments that drove about 40% of all successful deposits. By focusing on these segments instead of blasting everyone, they reduced marketing spend by 12-15% while maintaining the same conversion numbers. The key insight: stop guessing, start targeting.'
+          situation: `Banks running term deposit marketing campaigns face a common challenge: broadcasting the same message to all customers regardless of their likelihood to convert. This spray-and-pray approach wastes marketing resources on low-probability prospects while potentially under-investing in high-value segments.
+**The fundamental question:** Can we identify which customer types are most likely to open term deposits, so marketing can focus resources where they'll actually work?
+Traditional approaches relied on simple demographic rules (age, education, job type), but these often missed behavioral signals that better predict conversion.`,
+          task: `**Analyze customer behavior patterns to:**
+
+• **Identify which customer segments** show highest term deposit conversion rates
+• **Understand what distinguishes** high-conversion from low-conversion customers
+• **Quantify the potential efficiency gains** from targeted vs. broadcast marketing
+• **Build a framework** for segment-based marketing prioritization
+
+**Success meant** finding actionable patterns that could shift marketing from "contact everyone" to "contact the right people."`,
+          action: `**1. Analyzed Large-Scale Customer Data Using PySpark**
+Worked with banking customer data containing 11,162 records across 17 features, combining:
+• **Financial data:** Account balance, existing loans, credit status
+• **Demographic info:** Age, education, job type, marital status
+• **Campaign history:** Previous contacts, outcomes, call duration
+
+Used PySpark for scalable data processing—essential for handling banking datasets where production systems might analyze millions of customers. Built SQL queries to explore patterns across customer segments and performed comprehensive exploratory analysis to understand the data structure.
+
+**2. Discovered Behavioral Signals Trump Demographics**
+Through systematic analysis, uncovered a critical insight: traditional demographic factors (education, marital status) had weak predictive power for conversion. What actually mattered for predicting customer response:
+**Strong conversion indicators:**
+• **Call duration:** Customers who stayed engaged longer during calls showed genuine interest and converted at significantly higher rates
+• **Prior campaign response:** Customers who responded positively to previous campaigns demonstrated 3-5x higher conversion likelihood
+• **Financial health:** Customers with positive account balances and no outstanding loans were substantially more receptive to term deposit offers
+
+**Weak conversion indicators:**
+• **Education level:** tertiary vs. secondary education made minimal difference in conversion rates
+• **Marital status:** married vs. single showed no meaningful pattern
+• **Age:** broad age ranges displayed similar conversion behavior
+
+**Why this matters strategically:** Marketing teams typically target based on demographics because it's easy to segment. But if behavioral signals (engagement quality, financial health, past response patterns) predict conversion better, the entire targeting strategy needs to shift from "who they are" to "how they behave."
+
+**3. Identified Three Distinct Customer Segments**
+Created segmentation based on the behavioral and financial signals that actually predicted conversion success:
+**Segment 1 - High-Value Converters:**
+• **Account balances exceeding $1,000**
+• **No outstanding personal or housing loans**
+• **History of positive campaign interactions** or extended call engagement
+• **Conversion rate:** 18% higher than baseline
+• **Key characteristic:** Financially stable with demonstrated interest signals
+
+**Segment 2 - Moderate Opportunity:**
+• **Mixed financial indicators** (some debt, moderate balances)
+• **Limited prior campaign exposure** or neutral responses
+• **Conversion rate:** Near overall average
+• **Key characteristic:** Requires more targeted messaging to convert
+
+**Segment 3 - Low Propensity:**
+• **Zero or negative account balances**
+• **Multiple outstanding loans** across categories
+• **Consistently ignored or declined** previous campaign attempts
+• **Conversion rate:** Under 10%
+• **Key characteristic:** Clear disinterest signals combined with financial constraints
+
+**4. Quantified the Business Opportunity**
+Calculated potential efficiency gains from behavioral segmentation:
+**Pattern discovered:** High-propensity segments (Segment 1 and upper-tier Segment 2) represented approximately 40% of all successful term deposits while requiring significantly fewer contact attempts per conversion. Meanwhile, low-propensity segments consumed substantial marketing resources with conversion rates below 10%.
+**The efficiency opportunity:**
+• **Reallocating marketing spend** away from persistent non-converters (Segment 3)
+• **Focusing intensive outreach** on proven high-engagement customers (Segment 1)
+• **Maintaining moderate contact** with middle tier (Segment 2)
+
+**Result:** Analysis showed this targeted approach could reduce overall marketing contact volume—and associated costs—by 12-15% while maintaining equivalent or better conversion numbers.
+**The strategic shift:** Stop spending resources on customers showing clear disinterest signals; reallocate to those demonstrating engagement and financial capacity.
+
+**5. Built Visual Analytics in Tableau**
+Created interactive dashboards to make patterns immediately actionable for marketing teams:
+• **Customer distribution by employment type** with deposit contribution overlays
+• **Financial health correlation** with conversion likelihood
+• **Account balance patterns** across demographic categories
+• **Loan status interaction effects** (housing + personal loan combinations)
+• **Campaign outcome patterns** by customer segment
+
+These visualizations revealed which segments contributed disproportionately to successful deposits relative to their population size—making the targeting opportunity visually obvious to business stakeholders.`,
+          result: `**Key Insights Delivered**
+• **Identified behavioral-based segmentation** that outperformed demographic targeting, with high-propensity segments showing 18% higher conversion rates
+• **Mapped contribution patterns:** High-engagement, financially healthy customers drove approximately 40% of total deposit volume despite representing a smaller customer population
+• **Quantified targeting efficiency:** Analysis demonstrated that focusing marketing resources on high and moderate-propensity segments could reduce spend 12-15% while maintaining conversion volumes
+
+**Strategic Framework Created**
+Delivered actionable segmentation model showing that effective bank marketing should:
+• **Prioritize behavioral signals over demographics:** Call engagement duration and quality indicate genuine interest; prior positive campaign response predicts future conversion; financial health correlates with receptiveness.
+• **Implement tiered contact strategies:** High-propensity segments receive aggressive multi-channel follow-up; moderate segments get targeted messaging; low-propensity segments get minimal contact to reduce wasted spend.
+• **Use financial constraints as early filters:** Excluding customers with negative balances and multiple active loans early preserves budget for higher-probability prospects.
+
+**Technical Approach Demonstrated**
+Showed that combining PySpark for scalable data processing with Tableau for business-facing visualization enables sophisticated customer analytics that remain accessible to marketing stakeholders. The segmentation framework is replicable across other campaign optimization challenges—demonstrating product thinking around how analytical insights translate into operational decisions.
+
+**Core Learning**
+The most valuable customer segments aren't determined by population size or traditional demographics—they're defined by behavioral engagement signals and financial capacity. Marketing efficiency comes from recognizing which customers your offer genuinely serves, then concentrating resources accordingly rather than spreading them uniformly.
+This analysis demonstrated that data-driven segmentation can transform marketing from expense center to precision tool—but only when you measure what actually predicts behavior, not just what's easy to segment.`
         }
       }
     ]
