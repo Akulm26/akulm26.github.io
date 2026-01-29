@@ -739,7 +739,7 @@ The business was ready to expand into Singapore, Canada, Cyprus, Poland, and Fin
     ]
   },
   {
-    company: 'Apple Media Products',
+    company: 'Apple',
     role: 'Business Analyst (Contract)',
     location: 'Washington, DC & Cupertino, CA',
     dates: 'November 2021 – May 2023',
