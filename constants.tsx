@@ -380,7 +380,7 @@ export const WORK_EXPERIENCES: WorkExperience[] = [
       {
         title: 'AI News Platform Architecture',
         subtitle: 'Designed end-to-end architecture for content ingestion, AI summarization, and personalization',
-        resumeBullet: 'Designed end-to-end architecture for AI-powered mobile news app, defining RSS feed parsing for 50+ sources, integrating GPT-3.5 LLM summarization reducing reading time 40%, and implementing hybrid recommendation system achieving 38% DAU/MAU and scaling to 50K users, becoming Wareline\'s flagship product and signing 3 media company clients',
+        resumeBullet: 'Designed end-to-end architecture for AI-powered mobile news app, defining RSS feed parsing for 50+ sources, integrating GPT-3.5 LLM summarization reducing reading time 40%, and implementing hybrid recommendation system achieving 38% DAU/MAU and scaling to 50K users, becoming Wareline\'s flagship product',
         star: {
           situation: `Wareline Technologies identified a gap in the news aggregator market — existing apps like Google News and Flipboard were losing user engagement due to generic, overwhelming feeds. Wareline saw an opportunity to build its own AI-powered news platform.
 
