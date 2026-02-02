@@ -86,7 +86,7 @@ export const SECONDARY_PROJECTS: Project[] = [
   },
   {
     id: 'reddit-technical',
-    title: 'Deconstructing the Black Box',
+    title: 'Deconstructing Reddit\'s Black Box',
     headline: 'The Reddit Technical Case',
     type: 'Technical Case Study',
     description: 'A deep dive into demonstrating technical empathy as a PM - understanding architectural trade-offs, database decisions, and API design without writing production code.',
