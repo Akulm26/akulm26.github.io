@@ -555,62 +555,99 @@ This project taught me that in retention work, **respecting user attention is as
         }
       },
       {
-        title: 'Recommendation Algorithm A/B Testing',
-        subtitle: 'Led experimentation across 300 users to find the optimal personalization approach',
-        resumeBullet: 'Improved content relevance 20% by leading A/B tests of 3 recommendation algorithms (collaborative, content-based, hybrid) across 300 internal users, increasing session duration 15% (4.1→4.7 min) and articles read per session 12%, directly supporting our ad monetization model which required 7+ min sessions for profitability',
+        title: 'Human-in-the-Loop Misinformation Detection System',
+        subtitle: 'Designed AI-powered content moderation with user feedback loops and transparency-first UX',
+        resumeBullet: 'Reduced false positive rate by 30% by designing human-in-the-loop misinformation detection system with structured user reporting, confidence-based decisioning, and cross-verification against trusted sources—scaling content moderation without editorial headcount',
         star: {
-          situation: `At Wareline Technologies, we were building an AI-powered news application designed to deliver highly personalized news feeds. During internal beta testing with **300 users**, we faced a critical monetization risk:
+          situation: `At Wareline, we were building an AI-powered news aggregation app where credibility directly drove retention. During internal QA and early beta testing, we identified a critical problem: our AI classifier for misinformation detection was producing too many false positives—flagging legitimate news as fake.
 
-• Our ad-supported business model required **7+ minute average session durations** to hit revenue targets
-• We were tracking at just **4.1 minutes**—40% below benchmark
-• **62% of churned users** cited "content not relevant to my interests" as the primary reason
+In the first two weeks of internal testing, I logged **15-20 specific examples** of credible stories getting incorrectly flagged. The pattern was consistent:
+• **Breaking news** (limited cross-verification sources available)
+• **Politically sensitive topics** (model struggled with opinion vs. fact)
+• **Sensational-but-accurate headlines** (strong language triggered the classifier)
 
-Despite having a clean interface and strong RSS parsing infrastructure, our feed felt generic. Drop-off analysis showed users were leaving not because of technical issues, but because our one-size-fits-all content ranking wasn't surfacing articles they cared about.`,
-          task: `As the Product Manager leading personalization, my objective was to identify and validate which recommendation algorithm would meaningfully improve content relevance—measured by engagement, not just algorithm accuracy scores.
+**Why false positives mattered more than false negatives:** This was a product bet, not a proven insight at the start. My reasoning: users who see legitimate news flagged question the entire platform's credibility. News apps that over-moderate get accused of censorship. We validated this hypothesis later when complaint volume about wrongly flagged content outpaced complaints about misinformation getting through by roughly **3:1**.
 
-Leadership needed confidence that investing in personalization infrastructure would close our **40% session duration gap**.
+**Constraints:** Limited labeled training data, no historical baseline metrics, zero budget for editorial moderators, and a 7-person team. Whatever we built had to scale without human reviewers making operational decisions.`,
+          task: `Design a misinformation detection system that:
+• Meaningfully reduces false positive rate (target: **25%+ improvement**)
+• Scales without manual editorial moderation
+• Builds user trust through transparency rather than silent takedowns
+• Generates its own training signal to improve over time
 
-**Success Target:** +15% increase in average session duration (**4.1→4.7min**) during internal beta, with statistical significance (**p<0.05**), putting us on trajectory toward our 7min profitability threshold.`,
-          action: `**1. Hypothesis Formation & Algorithm Selection**
-I collaborated with data science to analyze reading patterns and identified three personalization approaches:
-• **Collaborative filtering** — Low data requirements, fast to implement, but needed critical mass of users
-• **Content-based filtering** — Could work with sparse user data, but risked creating filter bubbles
-• **Hybrid model** — Combining both, but required 2x compute resources and more complex ranking logic
+The 25% target was a judgment call—if roughly 1 in 4 flagged stories was a false positive (matching my qualitative observation), we needed to get closer to 1 in 6 or 1 in 7 for users to trust the system.
 
-I prioritized testing all three because our user base was still growing, and I didn't know whether we'd have enough behavioral data for collaborative filtering to work.
+**My role:** I wrote the product spec covering user flows, classification categories, and confidence thresholds. I worked with our ML engineer to define evaluation metrics and with backend to design the cross-verification trigger logic. I didn't write code, but I was in every technical discussion on trade-offs—latency vs. accuracy, threshold tuning, API selection.`,
+          action: `I designed a human-in-the-loop framework where users provided structured signals that fed into AI cross-verification. Not a replacement for ML, but a confidence-calibration layer.
 
-**2. Experiment Design**
-I designed a rigorous A/B test structure:
-• **3 cohorts of 100 users each** (sample size validated via power analysis—needed 95 users per cohort for p<0.05)
-• **4-week test duration** (based on internal users' weekly engagement patterns—needed 2+ full weeks to reach significance)
-• **Primary metric:** Session duration (business-critical)
-• **Secondary metrics:** Articles read per session, feed refresh rate, scroll depth
-• **Composite "Relevance Score":** 0.3(CTR) + 0.3(completion rate) + 0.4(time on article)—weighted toward consumption depth since our goal was meaningful engagement, not just clicks
+**1. Replaced Generic Reporting with Structured Classification**
+The default "Report" button was giving us noise—free-text reports were ambiguous and hard to act on. I redesigned it into four explicit categories:
+• Fake/Misleading
+• Biased
+• Deepfake Content
+• Vulgar/Spam
 
-**3. Instrumentation & Tracking**
-• Implemented **Mixpanel + Firebase** event tracking (article_opened, session_time, feed_refresh, scroll_depth)
-• Set up automated dashboards showing weekly performance by cohort
-• Added lightweight in-app survey: "How relevant did today's articles feel?" (1-5 scale) to validate quantitative findings with qualitative sentiment
+**Why this mattered:** Structured categories let us analyze errors by class. In the first 4 weeks of beta, we received ~800 reports. **70% (~560) mapped cleanly** to a single category. Before the redesign, maybe 30-40% of reports were actionable.
 
-**4. Stakeholder Alignment on Trade-offs**
-When preliminary results showed the hybrid model leading after week 2, I proactively brought engineering leadership into the decision process. The hybrid approach required **2x compute resources** vs. collaborative filtering alone.
+**Insight discovered:** I manually reviewed 100 flagged stories, categorizing them as opinion-framed vs. factual. Of the false positives, opinion headlines were misclassified **2× more often**—this became a retraining priority.
 
-I presented a cost-benefit analysis:
-• Projected engagement gains (+15% session duration) → **$120K additional annual ad revenue** (based on CPM rates)
-• Incremental infrastructure cost: **$35K/year**
-• Engineering approved the investment`,
-          result: `**The hybrid recommendation model won decisively** with statistically significant results (**p<0.01**):
+**2. Built Confidence-Based Decisioning Instead of Binary Labels**
+Engineering's initial proposal: flag or don't flag, based on a 0.7 confidence threshold. I pushed back—a binary threshold would suppress too much legitimate content, especially during breaking news when cross-verification sources don't exist yet.
 
-• **Content relevance:** +20% (based on composite relevance score)
-• **Session duration:** +15% (4.1→4.7 minutes)—on track toward 7min profitability goal
-• **Articles read per session:** +12%
-• **User satisfaction:** 4.2/5 avg rating for "content relevance" (vs. 3.1/5 for collaborative, 3.5/5 for content-based)
+The system I designed:
+• **High confidence misinformation** → De-ranked in feed + warning label
+• **Medium confidence** → "Verification in progress" disclaimer
+• **Low confidence** → Monitored internally, no user-facing action
 
-**Post-launch Sustainability:**
-I established a monitoring dashboard tracking relevance metrics weekly and set up automated alerts for >5% degradation. Over the subsequent 8 weeks in production, gains sustained and improved slightly (**+17% session duration by week 12**) as the model accumulated more training data.
+**Validating the UX:** I conducted 8 user interviews about moderation labels. Users responded to "Verification in progress" with comments like "At least you're checking"—it positioned us as verifying, not censoring.
 
-**Broader Impact:**
-The hybrid model became the foundation for our personalization infrastructure. The experimentation framework was reused for subsequent tests (notification timing, article summarization quality), and the "relevance score" metric became our team's North Star for content quality decisions.`
+**3. Cross-Verification Against Source Consensus**
+When a story crossed a reporting threshold, the system automatically checked whether core claims appeared in trusted sources.
+
+**Threshold logic:** We normalized by impressions—report rate = reports / impressions. Threshold was **0.5% report rate** within a 2-hour window.
+
+**Technical implementation:**
+• Extracted primary entities using **spaCy's named entity recognition**
+• Queried **NewsAPI** to find stories from trusted sources (Reuters, AP, BBC, and 5 others) mentioning same entities within 24 hours
+• If trusted sources covered the same event without contradiction, confidence in legitimacy increased
+• For stories too new to verify: Default to "Verification in progress" and re-check every 30 minutes for 4 hours
+
+**4. Transparency-First UX**
+I treated moderation as a communication problem, not just an ML problem. What users saw:
+• "3 users reported this as potentially misleading"
+• "This claim has not yet been verified by major news sources"
+• "Verification in progress" with a "Learn more" link
+
+Language was deliberately uncertain unless confidence was high. **Report completion rate** improved from ~60% to ~75%—users found structured categories clearer.
+
+**5. Error-Focused Evaluation**
+I defined **False Positive Rate** as our primary metric, not overall accuracy. A 95% accurate model that wrongly flags trusted news sources is worse than a 90% accurate model with fewer high-profile mistakes.
+
+**Methodology:** Each week, I manually reviewed 50 randomly selected flagged stories. Over 8 weeks, that's 400 stories reviewed. I also built a disagreement dashboard for cases where user reports, AI classification, and source consensus diverged—those became our retraining priority queue.`,
+          result: `**Moderation Performance (8-week beta, sampled manual review):**
+Comparing AI-only classification vs. human-in-the-loop system on the same content pool:
+• **FPR:** ~25% → ~17-18% (**~30% reduction** in false positives)
+• Caveat: Directional, based on sampled review, not a statistically rigorous A/B test—but pattern was consistent week over week
+
+**User Complaints:**
+• Complaints tagged as "content wrongly flagged" normalized per 1,000 DAU: dropped from ~4 to ~3
+• **25% reduction** in complaints, with flat user growth (not a denominator effect)
+
+**User Trust Indicators:**
+• Report completion rate: **60% → 75%**
+• Repeat reporters grew over time—users trusted their feedback mattered
+• **3:1 ratio** of complaints about wrong flags vs. misinformation getting through—validated original hypothesis
+
+**False Negative Trade-off:**
+Of 12 stories flagged externally by fact-checkers during beta, we had surfaced 9 with warnings. 3 were missed entirely—25% miss rate on known misinformation. Not ideal, but acceptable for our trust-first positioning.
+
+**System Sustainability:**
+• No operational editorial headcount required—system made autonomous decisions
+• Framework scaled with user growth rather than requiring linear moderator hiring
+• System generated its own training signals through structured feedback
+
+**Key Learning:**
+In content moderation, **transparency builds more trust than perfection**. Users forgave occasional misses when they understood we were verifying rather than censoring. The "Verification in progress" label became our most valuable UX element—it acknowledged uncertainty instead of making premature authoritative calls.`
         }
       }
     ]
