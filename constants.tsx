@@ -380,13 +380,13 @@ export const WORK_EXPERIENCES: WorkExperience[] = [
       {
         title: 'AI News Platform Architecture',
         subtitle: 'Designed end-to-end architecture for content ingestion, AI summarization, and personalization',
-        resumeBullet: 'Designed end-to-end architecture for AI-powered mobile news app, defining RSS feed parsing for 50+ sources, integrating GPT-3.5 LLM summarization reducing reading time 40%, and implementing hybrid recommendation system achieving 38% DAU/MAU and scaling to 50K users, becoming Wareline\'s flagship product.',
+        resumeBullet: 'Designed end-to-end architecture for AI-powered mobile news app, defining RSS feed parsing for 50+ sources, integrating GPT-3.5 LLM summarization reducing reading time 40%, and implementing hybrid recommendation system achieving 38% DAU/MAU and supporting a 50K user pilot, becoming Wareline\'s flagship AI initiative.',
         star: {
           situation: `Wareline Technologies identified a gap in the news aggregator market — existing apps like Google News and Flipboard were losing user engagement due to generic, overwhelming feeds. Wareline saw an opportunity to build its own AI-powered news platform.
 
 **The Challenge:** Build an AI-native mobile app from scratch with no existing infrastructure. We needed to define the entire technical architecture — from content ingestion to personalized delivery — within a **6-month timeline** and **$5K/month infrastructure budget**.
 
-**The Opportunity:** If we could demonstrate strong engagement metrics, this would become Wareline's flagship AI product and attract media companies as clients.`,
+**The Opportunity:** Demonstrating strong engagement metrics positioned the product as Wareline’s flagship AI initiative during the pilot phase.`,
           task: `As Product Manager, I needed to:
 
 • **Define product architecture** from content aggregation to mobile delivery (iOS + Android)
@@ -448,13 +448,13 @@ Beta feedback revealed users didn't trust black-box recommendations.
 
 **Impact:** "Not interested" clicks dropped 40%, trust score improved 3.2/5 → 4.4/5, and engagement increased 2.1x — transparency became competitive advantage.
 
-**6. Launch & Critical Iterations**
+**6. Pilot Rollout & Critical Iterations**
 **Beta Launch:** 500 early adopters via TestFlight + Android closed beta
 
 **Week 1 Crisis:** LLM hallucinated quotes in financial news. Same-day rollback to extractive summaries for finance category, redesigned prompts to emphasize "no speculation," reduced hallucinations 11% → 2%.
 
 **Week 3 Insight:** Filter bubbles — tech-heavy users stopped seeing diverse content. Added diversity constraints (top 20 must span 3+ categories) and serendipity slots. Counterintuitively, engagement increased — D7 retention improved 8%.`,
-          result: `**Engagement Impact (6 Months Post-Launch)**
+          result: `**Engagement Impact (6 months into pilot)**
 
 **Primary Metrics (Exceeded Target):**
 • **DAU/MAU:** 38% (beat 35% target, top-tier for news apps)
@@ -468,13 +468,13 @@ Beta feedback revealed users didn't trust black-box recommendations.
 • 2% hallucination rate (down from 15% in early beta)
 
 **Scale & Efficiency:**
-• Scaled to **50K users** in 6 months
+• Supported **50K users** during pilot within 6 months
 • Infrastructure costs: **$4.2K/month** (under $5K budget)
 • Mobile performance: 89% of opens loaded <800ms
 
 **Product Outcomes:**
-✅ **Became Wareline's flagship AI product:** Signed 3 media companies as clients using this platform as proof of capability
-✅ **Extensible architecture:** Enabled 12+ months of features (category customization, smart notifications, personalized newsletters) without rebuilds
+✅ **Became Wareline's flagship AI initiative:** Pilot results helped Wareline demonstrate AI capability to prospective media partners.
+✅ **Extensible architecture:** Initial system design supported multiple downstream features without requiring architectural rework. 
 ✅ **User satisfaction:** NPS +42, beta feedback: "Finally a news app that feels like it knows me"
 
 **Key Learnings:**
