@@ -665,8 +665,8 @@ const SelectedWork: React.FC<{
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {PROJECTS.map((project) => (
-            <div key={project.id} className={`bg-white rounded-3xl overflow-hidden border border-slate-100 flex flex-col hover-lift group shadow-sm ${project.id === 'lennys-dojo' ? 'md:col-span-2' : ''}`}>
-              <div className={`overflow-hidden relative ${project.id === 'lennys-dojo' ? 'h-72 md:h-96' : 'h-72'}`}>
+            <div key={project.id} className={`bg-white rounded-3xl overflow-hidden border border-slate-100 flex flex-col hover-lift group shadow-sm ${project.id === 'nike-app' ? 'md:col-span-2 md:w-[calc(50%-1rem)] md:mx-auto' : ''}`}>
+              <div className="h-72 overflow-hidden relative">
                 <img
                   src={editedImages[project.id] || project.imageUrl || `https://picsum.photos/seed/${project.id}/800/600`}
                   alt={project.title}
