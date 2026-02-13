@@ -18,7 +18,7 @@ export const PROJECTS: EnhancedProject[] = [
         description: 'This is a placeholder for a new project description. Replace this text with details about your work.',
         ctaText: 'View Project',
         isFeatured: true,
-        imageUrl: '/placeholder.svg',
+        imageUrl: 'https://i.ibb.co/V0TqTzT0/Gemini-Generated-Image-hr4wywhr4wywhr4w.png',
     },
     {
         id: 'cerebro-ai',
