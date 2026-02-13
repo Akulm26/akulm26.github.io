@@ -4,10 +4,11 @@ import { Menu, X, Mail, Linkedin, Calendar, MapPin, ArrowRight, ExternalLink, Do
 import { PROJECTS, SECONDARY_PROJECTS, CAPABILITIES, STEPS, PRINCIPLES, CASE_STUDIES, WORK_EXPERIENCES } from './constants';
 import { GoogleGenAI } from "@google/genai";
 import WorkExperience from './WorkExperience';
+import LennysDojoPage from './LennysDojoPage';
 
-const ImageEditorModal: React.FC<{ 
-  isOpen: boolean; 
-  onClose: () => void; 
+const ImageEditorModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
   initialImage?: string;
   onImageEdited: (newImageUrl: string) => void;
 }> = ({ isOpen, onClose, initialImage, onImageEdited }) => {
@@ -122,7 +123,7 @@ const ImageEditorModal: React.FC<{
             <div className="flex-1 space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Original Visual</label>
-                <div 
+                <div
                   onClick={() => fileInputRef.current?.click()}
                   className="aspect-video rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:bg-blue-50 transition-all group overflow-hidden relative"
                 >
@@ -145,7 +146,7 @@ const ImageEditorModal: React.FC<{
 
               <div>
                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Refinement Prompt</label>
-                <textarea 
+                <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="e.g. 'Add a retro cinematic filter', 'Remove the background person'..."
@@ -180,7 +181,7 @@ const ImageEditorModal: React.FC<{
                   <img src={resultImage} className="w-full h-full object-contain" alt="Result" />
                 </div>
                 <div className="flex gap-4">
-                  <button 
+                  <button
                     onClick={() => {
                       onImageEdited(resultImage);
                       onClose();
@@ -189,7 +190,7 @@ const ImageEditorModal: React.FC<{
                   >
                     <Check size={18} /> Apply to Portfolio
                   </button>
-                  <button 
+                  <button
                     onClick={() => setResultImage(null)}
                     className="flex-1 py-4 bg-white/10 border border-white/10 rounded-2xl font-bold text-sm hover:bg-white/20 transition-all"
                   >
@@ -362,7 +363,7 @@ const VeoModal: React.FC<{ isOpen: boolean; onClose: () => void; initialImage?: 
             <div className="space-y-6">
               <div>
                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Target Visual</label>
-                <div 
+                <div
                   onClick={() => fileInputRef.current?.click()}
                   className="aspect-video rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:bg-blue-50 transition-all group overflow-hidden relative"
                 >
@@ -417,7 +418,7 @@ const VeoModal: React.FC<{ isOpen: boolean; onClose: () => void; initialImage?: 
                   </>
                 )}
               </button>
-              
+
               <p className="text-[10px] text-center text-slate-400">
                 This process takes ~1-2 minutes. Ensure you have a <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" className="underline hover:text-accent">paid API key</a> selected.
               </p>
@@ -601,41 +602,41 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="order-2 md:order-2 relative flex flex-col items-center">
-            <div className="relative group perspective-1000 w-full">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-accent/5 to-transparent blur-2xl rounded-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-              <div className="relative w-full aspect-[1/1.1] rounded-[60px] overflow-hidden bg-slate-50 border border-slate-100 shadow-2xl transition-all duration-700 hover:rotate-1 hover:scale-[1.01]">
-                <img 
-                  src="https://PixHostPullZone.b-cdn.net/84c02f9f-af14-4135-93e9-15c98ca3833f/a4b8r0q5mjwhf78n/1767334659657-rg1gm8x2.png" 
-                  alt="Akul Malhotra" 
-                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none"></div>
-              </div>
-            </div>
-
-            <div className="mt-10 flex items-center justify-center gap-8 relative">
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-accent/30 hover:-translate-y-2 active:scale-95">
-                  <Mail size={24} />
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-accent opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Email</span>
-              </a>
-              
-              <a href="https://www.linkedin.com/in/malhotraakulsuhail/" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5] transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[#0077B5]/30 hover:-translate-y-2 active:scale-95">
-                  <Linkedin size={24} />
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#0077B5] opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">LinkedIn</span>
-              </a>
-
-              <a href="tel:+918847336864" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
-                <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-green-600 hover:text-white hover:border-green-600 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-green-600/30 hover:-translate-y-2 active:scale-95">
-                  <Phone size={24} />
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-green-600 opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Call</span>
-              </a>
+          <div className="relative group perspective-1000 w-full">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-accent/5 to-transparent blur-2xl rounded-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div className="relative w-full aspect-[1/1.1] rounded-[60px] overflow-hidden bg-slate-50 border border-slate-100 shadow-2xl transition-all duration-700 hover:rotate-1 hover:scale-[1.01]">
+              <img
+                src="https://PixHostPullZone.b-cdn.net/84c02f9f-af14-4135-93e9-15c98ca3833f/a4b8r0q5mjwhf78n/1767334659657-rg1gm8x2.png"
+                alt="Akul Malhotra"
+                className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none"></div>
             </div>
           </div>
+
+          <div className="mt-10 flex items-center justify-center gap-8 relative">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=akulsuhailmalhotra@gmail.com" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-accent/30 hover:-translate-y-2 active:scale-95">
+                <Mail size={24} />
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-accent opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Email</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/malhotraakulsuhail/" target="_blank" rel="noopener noreferrer" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5] transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-[#0077B5]/30 hover:-translate-y-2 active:scale-95">
+                <Linkedin size={24} />
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#0077B5] opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">LinkedIn</span>
+            </a>
+
+            <a href="tel:+918847336864" className="group/action flex flex-col items-center gap-2 cursor-pointer no-underline outline-none">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-text-primary hover:bg-green-600 hover:text-white hover:border-green-600 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-green-600/30 hover:-translate-y-2 active:scale-95">
+                <Phone size={24} />
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-green-600 opacity-0 group-hover/action:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/action:translate-y-0">Call</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -682,7 +683,7 @@ const SelectedWork: React.FC<{
                 <p className="text-lg font-medium text-text-secondary/80 mb-4 line-clamp-1 italic">"{project.headline}"</p>
                 <p className="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">{project.description}</p>
                 <div className="mt-auto">
-                  {(project.id === 'cerebro-ai' || project.id === 'leaklock' || project.id === 'hinge-roadmap' || project.id === 'nike-app') ? (
+                  {(project.id === 'cerebro-ai' || project.id === 'leaklock' || project.id === 'hinge-roadmap' || project.id === 'nike-app' || project.id === 'lennys-dojo') ? (
                     <button
                       onClick={() => onCaseStudyClick(project.id)}
                       className="inline-flex items-center space-x-2 text-text-primary font-bold border-b-2 border-accent pb-1 hover:border-accent/40 transition-all cursor-pointer"
@@ -708,7 +709,7 @@ const SelectedWork: React.FC<{
             <h5 className="text-4xl md:text-6xl font-display font-bold text-text-primary tracking-tighter mb-8">
               Technical Strategy & Research Thinking.
             </h5>
-            <button 
+            <button
               onClick={() => setShowSecondary(!showSecondary)}
               className="px-12 py-5 bg-text-primary text-white rounded-full font-bold text-sm hover:bg-accent transition-all inline-flex items-center gap-3 shadow-lg hover:shadow-accent/20"
             >
@@ -4049,6 +4050,14 @@ const App: React.FC = () => {
     return (
       <>
         <RedditCaseStudyPage onBack={handleBackToWork} />
+      </>
+    );
+  }
+
+  if (currentPage === 'lennys-dojo') {
+    return (
+      <>
+        <LennysDojoPage onBack={handleBackToWork} />
       </>
     );
   }
