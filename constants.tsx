@@ -8,14 +8,14 @@ export interface EnhancedProject extends Project {
 
 export const PROJECTS: EnhancedProject[] = [
     {
-        id: 'placeholder-project',
-        title: 'New Project',
-        headline: 'Coming Soon',
-        type: 'Project Type',
-        role: 'Role',
-        metricLabel: 'Metric',
-        metricValue: '100%',
-        description: 'This is a placeholder for a new project description. Replace this text with details about your work.',
+        id: 'lennys-dojo',
+        title: "Lenny's Dojo",
+        headline: 'Master the PM Interview with Real-World Intelligence',
+        type: 'AI Productivity',
+        role: 'Role', // To be updated
+        metricLabel: 'Metric', // To be updated
+        metricValue: '100%', // To be updated
+        description: "An AI-driven platform that extracts intelligence from Lenny's Podcast to convert real-world product insights into realistic interview simulations. It transforms unstructured audio transcripts into structured practice scenarios, providing personalized AI coaching and dimensional feedback to help PMs practice with authentic context rather than generic questions.",
         ctaText: 'View Project',
         isFeatured: true,
         imageUrl: '/lennys-dojo.png',
