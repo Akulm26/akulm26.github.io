@@ -59,7 +59,7 @@ const ResourcesPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                       <BookOpen size={18} />
                       Read Article
                     </a>
-                    <a href="https://awdbot-simulation.netlify.app" target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-white text-text-primary border-2 border-slate-200 py-4 px-6 rounded-2xl font-bold hover:border-accent hover:text-accent transition-all cursor-pointer">
+                    <a href="https://clawdbot-simulation.netlify.app" target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-white text-text-primary border-2 border-slate-200 py-4 px-6 rounded-2xl font-bold hover:border-accent hover:text-accent transition-all cursor-pointer">
                       <Play size={18} />
                       Try Simulation
                     </a>
