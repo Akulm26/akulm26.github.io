@@ -18,24 +18,10 @@ const ResourcesPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-white overflow-hidden relative border-b border-slate-100">
+      {/* Newsletter Section */}
+      <section className="pt-32 pb-20 bg-slate-50 overflow-hidden relative">
         <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-100/50 blur-[120px] -z-10 rounded-full"></div>
         <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-blue-50/30 blur-[100px] -z-10 rounded-full"></div>
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-text-primary mb-6">
-              Resources.
-            </h1>
-            <p className="text-xl md:text-2xl text-text-secondary mb-12 leading-relaxed">
-              Curated writings, tools, and mental models to help demystify the technology that is rapidly taking over our daily lives.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
              <div className="bg-white rounded-[40px] p-8 md:p-16 shadow-xl border border-slate-100">
