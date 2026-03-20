@@ -568,8 +568,13 @@ const Header: React.FC<{ onWorkClick?: () => void, onResourcesClick?: () => void
               <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${activeSection === link.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </a>
           ))}
-          <a href="#" onClick={(e) => handleLinkClick(e, 'resources')} className="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-accent/20">
+          <a
+            href="#"
+            onClick={(e) => handleLinkClick(e, 'resources')}
+            className="text-sm font-medium transition-colors relative group text-text-secondary hover:text-accent"
+          >
             Resources
+            <span className="absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 w-0 group-hover:w-full"></span>
           </a>
           <a href="#connect" onClick={(e) => handleLinkClick(e, '#connect')} className="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-accent/20">
             Connect
@@ -584,7 +589,7 @@ const Header: React.FC<{ onWorkClick?: () => void, onResourcesClick?: () => void
           {navLinks.map((link) => (
             <a key={link.name} href={link.href === 'work-page' ? '#' : link.href} className="text-4xl font-display font-bold text-text-primary" onClick={(e) => handleLinkClick(e, link.href)}>{link.name}</a>
           ))}
-          <a href="#" className="text-4xl font-display font-bold text-accent" onClick={(e) => handleLinkClick(e, 'resources')}>Resources</a>
+          <a href="#" className="text-4xl font-display font-bold text-text-primary" onClick={(e) => handleLinkClick(e, 'resources')}>Resources</a>
           <a href="#connect" className="text-4xl font-display font-bold text-accent" onClick={(e) => handleLinkClick(e, '#connect')}>Connect</a>
         </div>
       </div>
