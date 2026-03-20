@@ -32,6 +32,17 @@ const ResourcesPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 <p className="text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
                   Breaking down the tech and AI world so clearly that buzzwords become optional. No ego, no fluff — just clarity.
                 </p>
+                <div className="mt-8 flex justify-center">
+                  <a
+                      href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7429004113939689473"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-3 px-10 h-[52px] bg-[#0A66C2] text-white rounded-full font-sans font-bold hover:brightness-110 transition-all shadow-xl hover:shadow-[#0A66C2]/30 w-full md:w-auto text-lg border-none outline-none cursor-pointer"
+                    >
+                      <ExternalLink size={20} />
+                      Subscribe on LinkedIn
+                  </a>
+                </div>
              </div>
 
              {/* Featured Article Card */}
