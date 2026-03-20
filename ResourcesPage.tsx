@@ -41,36 +41,33 @@ const ResourcesPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 </div>
 
                 <div className="space-y-6 text-lg text-text-secondary leading-relaxed">
-                  <p>Let’s be honest about the corporate tech world: A solid 50% of any given meeting is just people aggressively nodding when someone drops a new acronym, secretly hoping they aren't asked to explain it.</p>
                   <p>The tech industry loves its jargon. It builds walls around simple concepts to make them sound like magic. But if a concept sounds too complicated to grasp, it’s usually an explanation problem, not a comprehension problem.</p>
-                  <p>The true measure of intelligence isn't how many buzzwords you can string together. It all boils down to one simple question: <span className="font-semibold text-text-primary italic">"Samajh aaya?" (Did you get it?)</span></p>
+                  
                   <p className="text-2xl font-bold text-text-primary mt-8 mb-4">That is the exact philosophy behind Explain It Like I'm 5 (ELI5).</p>
-                  <p>No ego. No fluff. Just a serious attempt to strip the complexity out of the technology that is rapidly taking over our daily lives.</p>
+                  <p>No ego. No fluff. Just a serious attempt to strip the complexity out of the technology rapidly taking over our daily lives.</p>
                   
                   <div className="pt-8 pb-4">
-                     <h4 className="text-2xl font-bold text-text-primary mb-8 border-b border-slate-100 pb-4">Here is what this newsletter is really about:</h4>
-                     <div className="space-y-8">
-                        <div>
-                           <h5 className="text-xl font-bold text-accent mb-2">Why this exists</h5>
-                           <p>Because tech shouldn't be a gated community. ELI5 is my pushback against the "Silicon Valley buzzword bingo" culture. It’s a safe space to ask the "silliest" questions about how things actually work—because those are usually the most important ones.</p>
-                        </div>
-                        <div>
-                           <h5 className="text-xl font-bold text-accent mb-2">Who it is for</h5>
-                           <p>Aspiring Product Managers, Project Managers, and non-technical professionals who are tired of pretending they know what the engineering team just said. If you want to actually understand the landscape instead of just surviving it, you're in the right place.</p>
-                        </div>
-                        <div>
-                           <h5 className="text-xl font-bold text-accent mb-2">What you will gain</h5>
-                           <p>Absolute clarity. We break down the mechanics of the tech and AI world: What really drives it? How does it function? Why does it work the way it works? You will leave with the confidence to stop simply nodding along and start actually leading the conversation.</p>
-                        </div>
-                     </div>
+                     <h4 className="text-2xl font-bold text-text-primary mb-8 border-b border-slate-100 pb-4">What you'll get:</h4>
+                     <ul className="space-y-6">
+                        <li className="flex items-start gap-4">
+                           <div className="w-2 h-2 rounded-full bg-accent mt-2.5 flex-shrink-0"></div>
+                           <p><strong className="text-text-primary">A Pushback on Jargon:</strong> Tech shouldn't be a gated community. ELI5 breaks down the "Silicon Valley buzzword bingo" culture.</p>
+                        </li>
+                        <li className="flex items-start gap-4">
+                           <div className="w-2 h-2 rounded-full bg-accent mt-2.5 flex-shrink-0"></div>
+                           <p><strong className="text-text-primary">Clear Fundamentals:</strong> We unpack the mechanics of the tech and AI world—what drives it, how it functions, and why it works.</p>
+                        </li>
+                        <li className="flex items-start gap-4">
+                           <div className="w-2 h-2 rounded-full bg-accent mt-2.5 flex-shrink-0"></div>
+                           <p><strong className="text-text-primary">Conversations You Lead:</strong> Stop aggressively nodding in meetings and gain the clarity to actually lead the conversation.</p>
+                        </li>
+                     </ul>
                   </div>
 
-                  <div className="mt-10 mb-8 p-8 bg-slate-50 border-l-4 border-accent rounded-r-2xl italic text-xl">
+                  <div className="mt-6 mb-8 p-8 bg-slate-50 border-l-4 border-accent rounded-r-2xl italic text-xl">
                     "If you can’t explain it simply, you don't understand it well enough."
                     <span className="block mt-4 text-base font-bold text-text-primary not-italic tracking-wide uppercase">— Prof. Richard Feynman</span>
                   </div>
-
-                  <p className="pt-2 font-medium text-text-primary">This isn't an exercise in personal branding; it’s a commitment to clear communication.</p>
                   
                   <div className="pt-12 mt-8 border-t border-slate-100 text-center flex flex-col items-center">
                     <p className="text-xl font-bold text-text-primary mb-8 max-w-lg">Subscribe to ELI5. Let's demystify the tech world, one simple explanation at a time.</p>
