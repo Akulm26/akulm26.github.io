@@ -5,6 +5,7 @@ import { PROJECTS, SECONDARY_PROJECTS, CAPABILITIES, STEPS, PRINCIPLES, CASE_STU
 import { GoogleGenAI } from "@google/genai";
 import WorkExperience from './WorkExperience';
 import LennysDojoPage from './LennysDojoPage';
+import ResourcesPage from './ResourcesPage';
 
 const ImageEditorModal: React.FC<{
   isOpen: boolean;
@@ -478,7 +479,7 @@ const VeoModal: React.FC<{ isOpen: boolean; onClose: () => void; initialImage?: 
 };
 
 
-const Header: React.FC<{ onWorkClick?: () => void }> = ({ onWorkClick }) => {
+const Header: React.FC<{ onWorkClick?: () => void, onResourcesClick?: () => void }> = ({ onWorkClick, onResourcesClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -526,6 +527,11 @@ const Header: React.FC<{ onWorkClick?: () => void }> = ({ onWorkClick }) => {
       if (onWorkClick) onWorkClick();
       return;
     }
+    if (href === 'resources') {
+      setIsOpen(false);
+      if (onResourcesClick) onResourcesClick();
+      return;
+    }
     const targetId = href.substring(1);
     const element = document.getElementById(targetId);
     if (element) {
@@ -562,6 +568,9 @@ const Header: React.FC<{ onWorkClick?: () => void }> = ({ onWorkClick }) => {
               <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${activeSection === link.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </a>
           ))}
+          <a href="#" onClick={(e) => handleLinkClick(e, 'resources')} className="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-accent/20">
+            Resources
+          </a>
           <a href="#connect" onClick={(e) => handleLinkClick(e, '#connect')} className="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-accent/20">
             Connect
           </a>
@@ -575,6 +584,7 @@ const Header: React.FC<{ onWorkClick?: () => void }> = ({ onWorkClick }) => {
           {navLinks.map((link) => (
             <a key={link.name} href={link.href === 'work-page' ? '#' : link.href} className="text-4xl font-display font-bold text-text-primary" onClick={(e) => handleLinkClick(e, link.href)}>{link.name}</a>
           ))}
+          <a href="#" className="text-4xl font-display font-bold text-accent" onClick={(e) => handleLinkClick(e, 'resources')}>Resources</a>
           <a href="#connect" className="text-4xl font-display font-bold text-accent" onClick={(e) => handleLinkClick(e, '#connect')}>Connect</a>
         </div>
       </div>
@@ -4070,13 +4080,25 @@ const App: React.FC = () => {
     );
   }
 
+  if (currentPage === 'resources') {
+    return (
+      <>
+        <ResourcesPage onBack={handleBackToHome} />
+      </>
+    );
+  }
+
   const handleWorkClick = () => {
     setCurrentPage('work-page');
   };
 
+  const handleResourcesClick = () => {
+    setCurrentPage('resources');
+  };
+
   return (
     <div className="min-h-screen font-sans text-text-primary">
-      <Header onWorkClick={handleWorkClick} />
+      <Header onWorkClick={handleWorkClick} onResourcesClick={handleResourcesClick} />
       <Hero />
       <SelectedWork
         onAnimate={openAnimate}
