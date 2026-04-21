@@ -78,12 +78,37 @@ const ResourcesPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 </div>
              </div>
 
+             {/* Edition #2 Card */}
+             <div className="bg-white rounded-[32px] shadow-xl border border-slate-100 overflow-hidden mb-12 transition-all hover:shadow-2xl hover:border-slate-200">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50/50 p-8 md:p-10 border-b border-blue-100/50">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <span className="inline-block bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest w-fit">Edition #2</span>
+                    <span className="text-sm font-bold text-text-secondary uppercase tracking-widest">April 2026</span>
+                  </div>
+                  <h4 className="text-3xl md:text-4xl font-bold text-text-primary leading-tight">What the Heck Is an MCP? 😫</h4>
+                </div>
+                <div className="p-8 md:p-10">
+                  <p className="text-lg text-text-secondary leading-relaxed mb-8">
+                    Ever wondered how AI tools like Claude actually connect to your calendar, Slack, or GitHub — all at once? We break down Model Context Protocol (MCP) using a hotel concierge analogy that anyone can follow. No engineering degree required.
+                  </p>
+                  <div className="flex flex-wrap gap-3 mb-10">
+                    {["MCP", "AI Integration", "AI Agents"].map(tag => (
+                       <span key={tag} className="px-4 py-2 bg-slate-100 text-text-secondary rounded-full text-xs font-bold">
+                         {tag}
+                       </span>
+                    ))}
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <a href="https://www.linkedin.com/pulse/what-heck-mcp-akul-suhail-malhotra-pmp-kumyc/?trackingId=05soI998RlaENelhC3B1Kw%3D%3D" target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 bg-text-primary text-white py-4 px-6 rounded-2xl font-bold hover:bg-accent transition-all shadow-lg hover:shadow-accent/20 cursor-pointer">
+                      <BookOpen size={18} />
+                      Read Article
+                    </a>
+                  </div>
+                </div>
+             </div>
+
              {/* Coming Soon Placeholders */}
              <div className="grid md:grid-cols-2 gap-6 mb-16">
-                <div className="border-2 border-dashed border-slate-300 rounded-[32px] p-8 md:p-12 text-center bg-white/50 opacity-70 flex flex-col items-center justify-center min-h-[240px]">
-                  <h5 className="text-xl font-bold text-text-primary mb-2">Edition #2</h5>
-                  <p className="text-text-secondary font-medium uppercase tracking-widest text-xs">Coming Soon</p>
-                </div>
                 <div className="border-2 border-dashed border-slate-300 rounded-[32px] p-8 md:p-12 text-center bg-white/50 opacity-70 flex flex-col items-center justify-center min-h-[240px]">
                   <h5 className="text-xl font-bold text-text-primary mb-2">Edition #3</h5>
                   <p className="text-text-secondary font-medium uppercase tracking-widest text-xs">Coming Soon</p>
